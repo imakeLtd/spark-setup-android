@@ -154,7 +154,7 @@ public class SetupFlowTest {
         onView(withId(R.id.wifi_list_fragment)).check(matches(isDisplayed()));
         onView(withId(R.id.msg_device_not_listed)).check(matches(isDisplayed()));
         onView(withId(R.id.logged_in_as)).check(matches(isDisplayed()));
-        onView(withId(R.id.action_log_out)).check(matches(isDisplayed()));
+//        onView(withId(R.id.action_log_out)).check(matches(isDisplayed()));
         onView(withId(R.id.action_cancel)).check(matches(isDisplayed()));
         onView(withText(photonSSID)).perform(click());
     }

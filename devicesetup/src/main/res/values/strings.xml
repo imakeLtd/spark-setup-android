@@ -2,11 +2,11 @@
 <resources>
 
     <!-- Phrase-templated strings -->
-    <string name="msg_device_not_listed">{device_name} not listed here? Hold the {setup_button_identifier} for three seconds to put it in setup mode; the {indicator_light} should turn {indicator_light_setup_color_name}</string>
+    <string name="msg_device_not_listed">{device_name} not listed here? Use the menu to select \'Connection Config\' and then \'Add WiFi\'</string>
     <string name="get_ready_title_text">Time to set up your {device_name}!</string>
     <string name="get_ready_text"><![CDATA[\n
-\u2022 Please power on your {device_name} by plugging it in.\n\n
-\u2022 The indicator light should blink {indicator_light_setup_color_name}. If this {device_name} has been set up before, hold the {setup_button_identifier} for 3 seconds to set up again.\n\n
+\u2022 Attach your {device_name} to a Conical Fermenter to power it on.\n\n
+\u2022 The device should be in connection mode. If it\'s not, use the menu to select \'Connection Config\' and then \'Add WiFi\'\n\n
 \u2022 Make sure your Android device is connected to the internet.\n\n
 \u2022 Tap the READY button to proceed.]]></string>
     <string name="wifi_list_header_text">Choose your {device_name}</string>
@@ -19,7 +19,7 @@
     <string name="set_up_another_device">Set up another {device_name}</string>
     <string name="empty_soft_ap_list_text">(No {device_name} devices found)</string>
     <string name="connecting_to_soft_ap">Connecting to {device_name}…</string>
-    <string name="unable_to_connect_to_soft_ap">Please try running setup again after resetting your {device_name} and putting it back in blinking blue listen mode if needed.</string>
+    <string name="unable_to_connect_to_soft_ap">Please try running setup again after resetting your {device_name} and putting it back in connection mode if needed.</string>
 
     <!-- regular strings -->
     <string name="set_up_your_product">Get Started</string>
@@ -74,7 +74,7 @@
     <string name="show_password">Show password</string>
     <string name="change_network">Change network</string>
     <string name="done">Done!</string>
-    <string name="get_ready_could_not_connect_to_cloud">Could not communicate with Photon cloud.  Make sure your Android device is connected to the internet and retry.</string>
+    <string name="get_ready_could_not_connect_to_cloud">Could not communicate with device cloud.  Make sure your Android device is connected to the internet and retry.</string>
     <string name="error">Error</string>
     <string name="ok">OK</string>
     <string name="access_denied">Access denied</string>
@@ -109,7 +109,7 @@
     <string name="device_naming_label">Name your new device:</string>
     <string name="device_naming_failure">Failed to change device name</string>
     <string name="location_required_message">This access allows you to pair your Android device with
-        your Photon to complete the setup process. Particle will not use location data for any other
+        your device to complete the setup process. Particle will not use location data for any other
         purposes.
     </string>
     <string name="enter_login_code_title">Enter a login code</string>

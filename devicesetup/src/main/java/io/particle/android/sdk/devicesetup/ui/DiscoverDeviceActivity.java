@@ -81,13 +81,13 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
         startActivity(WebViewActivity.buildIntent(v.getContext(), uri));
     }
 
-    @OnClick(R2.id.action_log_out)
-    protected void onLogoutClick() {
-        sparkCloud.logOut();
-        log.i("logged out, username is: " + sparkCloud.getLoggedInUsername());
-        startActivity(new Intent(DiscoverDeviceActivity.this, LoginActivity.class));
-        finish();
-    }
+//    @OnClick(R2.id.action_log_out)
+//    protected void onLogoutClick() {
+//        sparkCloud.logOut();
+//        log.i("logged out, username is: " + sparkCloud.getLoggedInUsername());
+//        startActivity(new Intent(DiscoverDeviceActivity.this, LoginActivity.class));
+//        finish();
+//    }
 
     @OnClick(R2.id.action_cancel)
     protected void onCancelClick() {
@@ -121,9 +121,9 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
         Ui.setText(this, R.id.msg_device_not_listed,
                 Phrase.from(this, R.string.msg_device_not_listed)
                         .put("device_name", getString(R.string.device_name))
-                        .put("setup_button_identifier", getString(R.string.mode_button_name))
-                        .put("indicator_light", getString(R.string.indicator_light))
-                        .put("indicator_light_setup_color_name", getString(R.string.listen_mode_led_color_name))
+//                        .put("setup_button_identifier", getString(R.string.mode_button_name))
+//                        .put("indicator_light", getString(R.string.indicator_light))
+//                        .put("indicator_light_setup_color_name", getString(R.string.listen_mode_led_color_name))
                         .format()
         );
 
@@ -139,7 +139,7 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
             );
         }
 
-        Ui.findView(this, R.id.action_log_out).setVisibility(BaseActivity.setupOnly ? View.GONE : View.VISIBLE);
+//        Ui.findView(this, R.id.action_log_out).setVisibility(BaseActivity.setupOnly ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -379,16 +379,16 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
     }
 
     private void onDeviceClaimedByOtherUser() {
-        String dialogMsg = getString(R.string.dialog_title_owned_by_another_user,
-                getString(R.string.device_name), sparkCloud.getLoggedInUsername());
-
-        new Builder(this)
-                .setTitle(getString(R.string.change_owner_question))
-                .setMessage(dialogMsg)
-                .setPositiveButton(getString(R.string.change_owner),
-                        (dialog, which) -> {
-                            dialog.dismiss();
-                            log.i("Changing owner to " + sparkCloud.getLoggedInUsername());
+//        String dialogMsg = getString(R.string.dialog_title_owned_by_another_user,
+//                getString(R.string.device_name), sparkCloud.getLoggedInUsername());
+//
+//        new Builder(this)
+//                .setTitle(getString(R.string.change_owner_question))
+//                .setMessage(dialogMsg)
+//                .setPositiveButton(getString(R.string.change_owner),
+//                        (dialog, which) -> {
+//                            dialog.dismiss();
+//                            log.i("Changing owner to " + sparkCloud.getLoggedInUsername());
                             // FIXME: state mutation from another class.  Not pretty.
                             // Fix this by breaking DiscoverProcessWorker down into Steps
                             resetWorker();
@@ -398,14 +398,14 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
 
                             showProgressDialog();
                             startConnectWorker();
-                        })
-                .setNegativeButton(R.string.cancel,
-                        (dialog, which) -> {
-                            dialog.dismiss();
-                            startActivity(new Intent(DiscoverDeviceActivity.this, GetReadyActivity.class));
-                            finish();
-                        })
-                .show();
+//                        })
+//                .setNegativeButton(R.string.cancel,
+//                        (dialog, which) -> {
+//                            dialog.dismiss();
+//                            startActivity(new Intent(DiscoverDeviceActivity.this, GetReadyActivity.class));
+//                            finish();
+//                        })
+//                .show();
     }
 
     // FIXME: remove this if we break down discover process worker into Steps
