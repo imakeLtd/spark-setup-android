@@ -9,9 +9,9 @@
 
     <drawable name="brand_image_horizontal">@drawable/device_setup_title</drawable>
     <drawable name="brand_image_vertical">@drawable/particle_vertical_blue</drawable>
-    <drawable name="screen_background">@drawable/trianglifybackground</drawable>
-    <color name="brand_image_background_color">#641A1A1A</color>
-
+    <drawable name="screen_background">@drawable/emptybackground2</drawable>
+    <color name="brand_image_background_color">#000000</color>
+    <color name="screen_background_color">#242A31</color>
     <string name="mode_button_name">Setup button</string>
     <string name="listen_mode_led_color_name">blue</string>
     <string name="network_name_prefix">Grainfather-Conical</string>
@@ -42,7 +42,7 @@
     <color name="register_field_background_color_disabled">#AACCCCCC</color>
 
 
-    <color name="element_background_color">#00BAEC</color>
+    <color name="element_background_color">#FFBA05</color>
     <color name="element_background_color_dark">#0083A6</color>
     <color name="element_text_color">@android:color/white</color>
     <color name="element_tint_color">@android:color/white</color>
@@ -82,8 +82,8 @@
     <!-- As named, just a darker variant of the primary color, used to color the status bar -->
     <color name="primary_color_dark">@color/shaded_background</color>
     <!-- accent_color is used as the default value for tinting widgets -->
-    <color name="accent_color">@color/element_background_color</color>
-    <color name="system_bar_bg">@android:color/transparent</color>
+    <color name="accent_color">#FFBA05</color>
+    <color name="system_bar_bg">@android:color/black</color>
 
     <!-- the distance between EditText elements in a "form" like the register and login screens -->
     <dimen name="edittext_form_element_gap">0dp</dimen>

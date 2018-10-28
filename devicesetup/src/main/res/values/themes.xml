@@ -19,8 +19,8 @@
              colorControlHighlight, and colorSwitchThumbNormal. -->
 
         <!--        <item name="android:textColor">@color/normal_text_color</item>-->
-        <item name="android:windowBackground">@drawable/screen_background</item>
-
+        <!--<item name="android:windowBackground">@drawable/screen_background</item>-->
+        <item name="android:windowBackground">@color/screen_background_color</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="android:textAppearanceLargePopupMenu">@style/PopupMenuText</item>
         <item name="android:textAppearanceSmallPopupMenu">@style/PopupMenuText</item>
