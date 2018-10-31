@@ -4,8 +4,8 @@
     <string name="brand_name">Grainfather</string>
     <string name="app_name">@string/brand_name</string>
     <string name="device_name">Conical Fermenter Controller</string>
-    <drawable name="device_image">@drawable/device_setup_black</drawable>
-    <drawable name="device_image_small">@drawable/device_setup_black</drawable>
+    <drawable name="device_image">@drawable/device_setup_wfc100</drawable>
+    <drawable name="device_image_small">@drawable/device_setup_wfc100</drawable>
 
     <drawable name="brand_image_horizontal">@drawable/device_setup_title</drawable>
     <drawable name="brand_image_vertical">@drawable/particle_vertical_blue</drawable>

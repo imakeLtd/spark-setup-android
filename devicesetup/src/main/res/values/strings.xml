@@ -5,10 +5,9 @@
     <string name="msg_device_not_listed">{device_name} not listed here? Use the menu to select \'Connection Config\' and then \'Add WiFi\'</string>
     <string name="get_ready_title_text">Time to set up your {device_name}!</string>
     <string name="get_ready_text"><![CDATA[\n
-\u2022 Attach your {device_name} to a Conical Fermenter to power it on.\n\n
-\u2022 The device should be in connection mode. If it\'s not, use the menu to select \'Connection Config\' and then \'Add WiFi\'\n\n
-\u2022 Make sure your Android device is connected to the internet.\n\n
-\u2022 Tap the READY button to proceed.]]></string>
+1. Attach your {device_name} to a Conical Fermenter to power it on\n\n\n
+2. The device should be in connection mode. If it\'s not, use the menu to select \'Connection Config\' and then \'Add WiFi\'\n\n\n
+3. Make sure your Android device is connected to the internet]]></string>
     <string name="wifi_list_header_text">Choose your {device_name}</string>
     <string name="connecting_text">Your {device_name} is connecting to</string>
     <string name="your_device_is_connected">Your {device_name} is connected!</string>
