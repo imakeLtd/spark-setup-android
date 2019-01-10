@@ -116,7 +116,10 @@ public class WifiFacade {
                 Arrays.asList(connectivityManager.getAllNetworks()),
                 network -> {
                     NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI);
+                    // Don't try using the P2P Wi-Fi interfaces on recent Samsung devices
+                    if (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_WIFI_P2P)) {
+                        return false;
+                    }
                     return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI);
                 }
         );
