@@ -2,6 +2,7 @@ package io.particle.android.sdk.devicesetup.loaders;
 
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 
@@ -26,7 +27,7 @@ public class WifiScanResultLoader extends BetterAsyncTaskLoader<Set<ScanResultNe
 
     private static final TLog log = TLog.get(WifiScanResultLoader.class);
 
-
+    private volatile Context appCtx;
     private final WifiFacade wifiFacade;
     private final SimpleReceiver receiver;
     private volatile Set<ScanResultNetwork> mostRecentResult;
@@ -34,7 +35,7 @@ public class WifiScanResultLoader extends BetterAsyncTaskLoader<Set<ScanResultNe
 
     public WifiScanResultLoader(Context context, WifiFacade wifiFacade) {
         super(context);
-        Context appCtx = context.getApplicationContext();
+        appCtx = context.getApplicationContext();
         receiver = SimpleReceiver.newReceiver(
                 appCtx, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION),
                 (ctx, intent) -> {
@@ -94,7 +95,15 @@ public class WifiScanResultLoader extends BetterAsyncTaskLoader<Set<ScanResultNe
         if (!truthy(input.SSID)) {
             return false;
         }
-        String softApPrefix = (getContext().getString(R.string.network_name_prefix) + "-").toLowerCase(Locale.ROOT);
+
+        SharedPreferences prefs = appCtx.getSharedPreferences("prefs.db", 0);
+        String customPrefix = prefs.getString("particleWifiPrefix", ""); // getting String
+        String softApPrefix = "";
+        if (!customPrefix.isEmpty()) {
+            softApPrefix  = (customPrefix + "-").toLowerCase(Locale.ROOT);
+        } else {
+            softApPrefix = (getContext().getString(R.string.network_name_prefix) + "-").toLowerCase(Locale.ROOT);
+        }
         return input.SSID.toLowerCase(Locale.ROOT).startsWith(softApPrefix);
     };
 
