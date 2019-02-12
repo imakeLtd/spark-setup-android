@@ -108,13 +108,13 @@ public class ParticleDeviceSetupLibrary {
     public static void startDeviceSetup(Context ctx) {
         Preconditions.checkNotNull(instance.setupCompleteIntentBuilder,
                 "SetupCompleteIntentBuilder instance is null");
-
-        ctx.startActivity(new Intent(ctx, GetReadyActivity.class));
+        Intent newIntent = new Intent(ctx, GetReadyActivity.class);
+        newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        ctx.startActivity(newIntent);
     }
 
     public static void startDeviceSetup(Context ctx, SetupCompleteIntentBuilder setupCompleteIntentBuilder) {
         instance.setupCompleteIntentBuilder = setupCompleteIntentBuilder;
-
         startDeviceSetup(ctx);
     }
 
