@@ -43,6 +43,11 @@ import io.particle.android.sdk.utils.ui.WebViewActivity;
 
 import static io.particle.android.sdk.utils.Py.list;
 
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class SuccessActivity extends BaseActivity {
 
@@ -55,6 +60,8 @@ public class SuccessActivity extends BaseActivity {
     public static final int RESULT_FAILURE_CONFIGURE = 4;
     public static final int RESULT_FAILURE_NO_DISCONNECT = 5;
     public static final int RESULT_FAILURE_LOST_CONNECTION_TO_DEVICE = 6;
+
+    private String dName = "default";
 
 
     public static Intent buildIntent(Context ctx, int resultCode, String deviceId) {
@@ -128,6 +135,15 @@ public class SuccessActivity extends BaseActivity {
 
         int resultCode = getIntent().getIntExtra(EXTRA_RESULT_CODE, -1);
         isSuccess = list(RESULT_SUCCESS, RESULT_SUCCESS_UNKNOWN_OWNERSHIP).contains(resultCode);
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", 0);
+        String customiserStr = prefs.getString("particleCustomiser", ""); // getting String
+        JsonObject customiserObject = new JsonParser().parse(customiserStr).getAsJsonObject();
+
+        dName = customiserObject != null ? customiserObject.get("deviceName").getAsString() : null;
+        if (dName == null || dName.length() == 0) {
+            dName = getString(R.string.device_name);
+        }
 
         if (!isSuccess) {
             ImageView image = Ui.findView(this, R.id.result_image);
@@ -242,9 +258,10 @@ public class SuccessActivity extends BaseActivity {
 
     private Pair<? extends CharSequence, CharSequence> buildUiStringPair(int resultCode) {
         Pair<Integer, Integer> stringIds = resultCodesToStringIds.get(resultCode);
+
         return Pair.create(getString(stringIds.first),
                 Phrase.from(this, stringIds.second)
-                        .put("device_name", getString(R.string.device_name))
+                        .put("device_name", dName)
                         .format());
     }
 
