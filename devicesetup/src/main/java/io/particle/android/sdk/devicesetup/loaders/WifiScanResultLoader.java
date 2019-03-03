@@ -101,7 +101,7 @@ public class WifiScanResultLoader extends BetterAsyncTaskLoader<Set<ScanResultNe
 
         SharedPreferences prefs = appCtx.getSharedPreferences("prefs.db", 0);
         String customiserStr = prefs.getString("particleCustomiser", ""); // getting String
-        JsonObject customiserObject = new JsonParser().parse(customiserStr).getAsJsonObject();
+        JsonObject customiserObject =  customiserStr.length() != 0 ? new JsonParser().parse(customiserStr).getAsJsonObject() : null;
 
         String customPrefix = customiserObject != null ? customiserObject.get("wifiPrefix").getAsString() : "";
 

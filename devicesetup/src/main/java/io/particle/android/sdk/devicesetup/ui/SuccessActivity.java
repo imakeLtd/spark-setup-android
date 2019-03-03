@@ -138,7 +138,7 @@ public class SuccessActivity extends BaseActivity {
 
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", 0);
         String customiserStr = prefs.getString("particleCustomiser", ""); // getting String
-        JsonObject customiserObject = new JsonParser().parse(customiserStr).getAsJsonObject();
+        JsonObject customiserObject = customiserStr.length() != 0 ? new JsonParser().parse(customiserStr).getAsJsonObject() : null;
 
         dName = customiserObject != null ? customiserObject.get("deviceName").getAsString() : null;
         if (dName == null || dName.length() == 0) {
