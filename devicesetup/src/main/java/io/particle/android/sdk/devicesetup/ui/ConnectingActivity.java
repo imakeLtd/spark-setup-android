@@ -44,6 +44,11 @@ import io.particle.android.sdk.utils.ui.Ui;
 
 import static io.particle.android.sdk.utils.Py.list;
 
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class ConnectingActivity extends RequiresWifiScansActivity {
 
@@ -109,10 +114,20 @@ public class ConnectingActivity extends RequiresWifiScansActivity {
         log.d("Connecting to " + networkToConnectTo + ", with networkSecretPlaintext of size: "
                 + ((networkSecretPlaintext == null) ? 0 : networkSecretPlaintext.length()));
 
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", 0);
+        String customiserStr = prefs.getString("particleCustomiser", ""); // getting String
+        JsonObject customiserObject = new JsonParser().parse(customiserStr).getAsJsonObject();
+
+        String deviceName = customiserObject != null ? customiserObject.get("deviceName").getAsString() : null;
+        if (deviceName == null || deviceName.length() == 0) {
+            deviceName = getString(R.string.device_name);
+        }
+
         Ui.setText(this, R.id.network_name, networkToConnectTo.ssid);
         Ui.setText(this, R.id.connecting_text,
                 Phrase.from(this, R.string.connecting_text)
-                        .put("device_name", getString(R.string.device_name))
+                        .put("device_name", deviceName)
                         .format()
         );
         Ui.setText(this, R.id.network_name, networkToConnectTo.ssid);

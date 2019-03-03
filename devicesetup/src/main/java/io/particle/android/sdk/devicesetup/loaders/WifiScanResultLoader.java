@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -97,7 +100,11 @@ public class WifiScanResultLoader extends BetterAsyncTaskLoader<Set<ScanResultNe
         }
 
         SharedPreferences prefs = appCtx.getSharedPreferences("prefs.db", 0);
-        String customPrefix = prefs.getString("particleWifiPrefix", ""); // getting String
+        String customiserStr = prefs.getString("particleCustomiser", ""); // getting String
+        JsonObject customiserObject = new JsonParser().parse(customiserStr).getAsJsonObject();
+
+        String customPrefix = customiserObject != null ? customiserObject.get("wifiPrefix").getAsString() : "";
+
         String softApPrefix = "";
         if (!customPrefix.isEmpty()) {
             softApPrefix  = (customPrefix + "-").toLowerCase(Locale.ROOT);

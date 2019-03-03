@@ -3,15 +3,20 @@ package io.particle.android.sdk.devicesetup.ui;
 import android.Manifest.permission;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
+
+import android.widget.ImageView;
 
 import com.squareup.phrase.Phrase;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import javax.inject.Inject;
@@ -33,6 +38,11 @@ import io.particle.android.sdk.utils.ui.ParticleUi;
 import io.particle.android.sdk.utils.ui.Toaster;
 import io.particle.android.sdk.utils.ui.Ui;
 import io.particle.android.sdk.utils.ui.WebViewActivity;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 
 import static io.particle.android.sdk.utils.Py.truthy;
 
@@ -58,6 +68,22 @@ public class GetReadyActivity extends BaseActivity implements PermissionsFragmen
 
         PermissionsFragment.ensureAttached(this);
 
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", 0);
+        String customiserStr = prefs.getString("particleCustomiser", ""); // getting String
+        JsonObject customiserObject = new JsonParser().parse(customiserStr).getAsJsonObject();
+
+        String deviceName = customiserObject != null ? customiserObject.get("deviceName").getAsString() : null;
+        if (deviceName == null || deviceName.length() == 0) {
+            deviceName = getString(R.string.device_name);
+        }
+
+        Ui.setText(this, R.id.get_ready_text_title,
+                Phrase.from(this, R.string.get_ready_title_text)
+                        .put("device_name", deviceName)
+                        .format());
+
+
         Ui.findView(this, R.id.action_im_ready).setOnClickListener(this::onReadyButtonClicked);
         Ui.setTextFromHtml(this, R.id.action_troubleshooting, R.string.troubleshooting)
                 .setOnClickListener(v -> {
@@ -65,17 +91,34 @@ public class GetReadyActivity extends BaseActivity implements PermissionsFragmen
                     startActivity(WebViewActivity.buildIntent(v.getContext(), uri));
                 });
 
-        Ui.setText(this, R.id.get_ready_text,
-                Phrase.from(this, R.string.get_ready_text)
-                        .put("device_name", getString(R.string.device_name))
+
+        String instr = customiserObject != null ? customiserObject.get("instructions").getAsString() : null;
+
+        if (instr == null || instr.length() == 0){
+
+            Ui.setText(this, R.id.get_ready_text,
+                    Phrase.from(this, R.string.get_ready_text)
+                            .put("device_name", deviceName)
 //                        .put("indicator_light_setup_color_name", getString(R.string.listen_mode_led_color_name))
 //                        .put("setup_button_identifier", getString(R.string.mode_button_name))
-                        .format());
+                            .format());
+        } else {
+            Ui.setText(this, R.id.get_ready_text, instr);
+        }
 
-        Ui.setText(this, R.id.get_ready_text_title,
-                Phrase.from(this, R.string.get_ready_title_text)
-                        .put("device_name", getString(R.string.device_name))
-                        .format());
+        Ui.findView(this, R.id.action_im_ready).setOnClickListener(this::onReadyButtonClicked);
+
+
+        ImageView imgView = Ui.findView(this, R.id.imageView);
+        String deviceImg = customiserObject != null ? customiserObject.get("productImg").getAsString() : null;
+//        Log.d("Marko-Device-Setup", "deviceImg: " + deviceImg);
+        if (deviceImg == null || deviceImg.length() == 0) {
+            imgView.setImageDrawable(getResources().getDrawable(R.drawable.device_image));
+        } else {
+            imgView.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(deviceImg, "drawable", getApplicationContext().getPackageName())));
+        }
+//        Log.d("Marko-Device-Setup", "end");
+
     }
 
     @Override

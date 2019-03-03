@@ -47,6 +47,13 @@ import io.particle.android.sdk.utils.ui.WebViewActivity;
 
 import static io.particle.android.sdk.utils.Py.truthy;
 
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+
 
 // FIXME: this activity is *far* too complicated.  Split it out into smaller components.
 public class DiscoverDeviceActivity extends RequiresWifiScansActivity
@@ -74,6 +81,8 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
     private int discoverProcessAttempts = 0;
 
     private SSID selectedSoftApSSID;
+
+    private String dName = "default";
 
     @OnClick(R2.id.action_troubleshooting)
     protected void onTroubleshootingClick(View v) {
@@ -112,15 +121,25 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
         ConnectToApFragment.ensureAttached(this);
         resetWorker();
 
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", 0);
+        String customiserStr = prefs.getString("particleCustomiser", ""); // getting String
+        JsonObject customiserObject = new JsonParser().parse(customiserStr).getAsJsonObject();
+
+        dName = customiserObject != null ? customiserObject.get("deviceName").getAsString() : null;
+        if (dName == null || dName.length() == 0) {
+            dName = getString(R.string.device_name);
+        }
+
+
         Ui.setText(this, R.id.wifi_list_header,
                 Phrase.from(this, R.string.wifi_list_header_text)
-                        .put("device_name", getString(R.string.device_name))
+                        .put("device_name", dName)
                         .format()
         );
 
         Ui.setText(this, R.id.msg_device_not_listed,
                 Phrase.from(this, R.string.msg_device_not_listed)
-                        .put("device_name", getString(R.string.device_name))
+                        .put("device_name", dName)
 //                        .put("setup_button_identifier", getString(R.string.mode_button_name))
 //                        .put("indicator_light", getString(R.string.indicator_light))
 //                        .put("indicator_light_setup_color_name", getString(R.string.listen_mode_led_color_name))
@@ -244,7 +263,7 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
     @Override
     public String getListEmptyText() {
         return Phrase.from(this, R.string.empty_soft_ap_list_text)
-                .put("device_name", getString(R.string.device_name))
+                .put("device_name", dName)
                 .format().toString();
     }
 
@@ -273,7 +292,7 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
         wifiListFragment.stopAggroLoading();
 
         String msg = Phrase.from(this, R.string.connecting_to_soft_ap)
-                .put("device_name", getString(R.string.device_name))
+                .put("device_name", dName)
                 .format().toString();
 
         connectToApSpinnerDialog = new ProgressDialog(this);
@@ -364,7 +383,7 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
         }
 
         String errorMsg = Phrase.from(this, R.string.unable_to_connect_to_soft_ap)
-                .put("device_name", getString(R.string.device_name))
+                .put("device_name", dName)
                 .format().toString();
 
         new AlertDialog.Builder(this)
