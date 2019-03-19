@@ -1,5 +1,6 @@
 package io.particle.android.sdk.devicesetup.ui;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -209,11 +210,11 @@ public class SuccessActivity extends BaseActivity {
                 new SetupResult(isSuccess, isSuccess ? DeviceSetupState.deviceToBeSetUpId : null));
 
         // FIXME: we shouldn't do this in the lib.  looks like another argument for Fragments.
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_SINGLE_TOP
-                | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+//                | Intent.FLAG_ACTIVITY_SINGLE_TOP
+//                | Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
 
         Intent result = new Intent(DeviceSetupCompleteContract.ACTION_DEVICE_SETUP_COMPLETE)
                 .putExtra(DeviceSetupCompleteContract.EXTRA_DEVICE_SETUP_WAS_SUCCESSFUL, isSuccess);
@@ -223,6 +224,10 @@ public class SuccessActivity extends BaseActivity {
         }
         LocalBroadcastManager.getInstance(context).sendBroadcast(result);
 
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("particleDeviceSetupFinished", "true"); // getting String
+        editor.commit();
         finish();
     }
 
