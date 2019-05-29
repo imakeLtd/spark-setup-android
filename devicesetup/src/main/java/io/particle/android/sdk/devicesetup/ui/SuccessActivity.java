@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.EditText;
@@ -63,6 +64,8 @@ public class SuccessActivity extends BaseActivity {
     public static final int RESULT_FAILURE_LOST_CONNECTION_TO_DEVICE = 6;
 
     private String dName = "default";
+    private boolean skipRename = false;
+    private String defaultDeviceName = "Unnamed-device";
 
 
     public static Intent buildIntent(Context ctx, int resultCode, String deviceId) {
@@ -108,7 +111,7 @@ public class SuccessActivity extends BaseActivity {
     @OnClick(R2.id.action_done)
     protected void onDoneClick(View v) {
         deviceNameView.setError(null);
-        if (isSuccess && !BaseActivity.setupOnly) {
+        if (!skipRename && isSuccess && !BaseActivity.setupOnly) {
             if (deviceNameView.getVisibility() == View.VISIBLE && deviceNameView.getText().toString().isEmpty()) {
                 deviceNameView.setError(getString(R.string.error_field_required));
             } else {
@@ -145,6 +148,10 @@ public class SuccessActivity extends BaseActivity {
         if (dName == null || dName.length() == 0) {
             dName = getString(R.string.device_name);
         }
+        defaultDeviceName = customiserObject != null ? customiserObject.get("deviceDefaultName").getAsString() : defaultDeviceName;
+        skipRename = customiserObject != null ? customiserObject.get("skipRename").getAsBoolean() : skipRename;
+        Log.d("Marko-Device-Setup", "Got appdefaults defaultDeviceName:" + defaultDeviceName);
+        Log.d("Marko-Device-Setup", "Got  appdefaults skipRename:" + skipRename);
 
         if (!isSuccess) {
             ImageView image = Ui.findView(this, R.id.result_image);
@@ -239,26 +246,27 @@ public class SuccessActivity extends BaseActivity {
     }
 
     private void showDeviceName(ParticleCloud cloud) {
-        Async.executeAsync(cloud, new Async.ApiWork<ParticleCloud, ParticleDevice>() {
-            @Override
-            public ParticleDevice callApi(@NonNull ParticleCloud cloud) throws ParticleCloudException, IOException {
-                return particleCloud.getDevice(getIntent().getStringExtra(EXTRA_DEVICE_ID));
-            }
+        if (!this.skipRename) {
+            deviceNameLabelView.setVisibility(View.VISIBLE);
+            deviceNameView.setVisibility(View.VISIBLE);
+            Async.executeAsync(cloud, new Async.ApiWork<ParticleCloud, ParticleDevice>() {
+                @Override
+                public ParticleDevice callApi(@NonNull ParticleCloud cloud) throws ParticleCloudException, IOException {
+                    return particleCloud.getDevice(getIntent().getStringExtra(EXTRA_DEVICE_ID));
+                }
 
-            @Override
-            public void onSuccess(@NonNull ParticleDevice particleDevice) {
-                deviceNameLabelView.setVisibility(View.VISIBLE);
-                deviceNameView.setVisibility(View.VISIBLE);
-                deviceNameView.setText(particleDevice.getName());
-            }
+                @Override
+                public void onSuccess(@NonNull ParticleDevice particleDevice) {
+                    deviceNameView.setText(particleDevice.getName());
+                }
 
-            @Override
-            public void onFailure(@NonNull ParticleCloudException e) {
-                //In case setup was successful, but we cannot retrieve device naming would be a minor issue
-                deviceNameView.setVisibility(View.GONE);
-                deviceNameLabelView.setVisibility(View.GONE);
-            }
-        });
+                @Override
+                public void onFailure(@NonNull ParticleCloudException e) {
+                    //In case setup was successful, but we cannot retrieve device naming would be a minor issue
+                    deviceNameView.setText(defaultDeviceName);
+                }
+            });
+        }
     }
 
     private Pair<? extends CharSequence, CharSequence> buildUiStringPair(int resultCode) {
