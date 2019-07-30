@@ -2,7 +2,6 @@ package io.particle.android.sdk.accountsetup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -12,6 +11,7 @@ import com.squareup.phrase.Phrase;
 
 import javax.inject.Inject;
 
+import android.support.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

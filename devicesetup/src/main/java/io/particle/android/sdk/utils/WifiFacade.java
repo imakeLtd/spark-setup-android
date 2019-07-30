@@ -4,14 +4,11 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build.VERSION_CODES;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +16,9 @@ import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import io.particle.android.sdk.utils.Funcy.Predicate;
 
 import static io.particle.android.sdk.utils.Py.truthy;
@@ -30,6 +30,7 @@ public class WifiFacade {
     private static final TLog log = TLog.get(WifiFacade.class);
 
 
+    @NonNull
     public static Predicate<ScanResult> is24Ghz = scanResult -> {
         // this approach lifted from the ScanResult source
         return scanResult.frequency > 2300 && scanResult.frequency < 2500;
@@ -112,6 +113,8 @@ public class WifiFacade {
         // "I want the Network obj for the Wi-Fi network with SSID <foo>".
         // Instead, you have to infer it based on the fact that you can only
         // have one connected Wi-Fi connection at a time.
+        // (Update: one *regular* Wi-Fi connection, anyway.  See below.)
+
         return Funcy.findFirstMatch(
                 Arrays.asList(connectivityManager.getAllNetworks()),
                 network -> {

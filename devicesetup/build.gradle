@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 
 // This is the library version used when deploying the artifact
-version = '0.6.1'
+version = '0.6.3'
 
 ext {
     bintrayRepo = 'android'
@@ -35,11 +35,6 @@ ext {
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
-
-    dexOptions {
-        javaMaxHeapSize "2g"
-    }
 
     defaultConfig {
         minSdkVersion 15
@@ -66,16 +61,6 @@ android {
 
 }
 
-// TESTING ONLY: to build against a locally built version of the cloud SDK, uncomment these
-// lines, and the "compile(name:'cloudsdk', ext:'aar')" line below under dependencies.
-// (If you don't know what this means or why we (the SDK maintainers at Particle) would want to
-// do this, then you can safely ignore all this and keep it commented out. :)
-//repositories {
-//    flatDir {
-//        dirs 'libs'
-//    }
-//}
-
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
@@ -94,16 +79,13 @@ dependencies {
 
     api 'com.android.support:appcompat-v7:27.1.1'
     api 'com.android.support:recyclerview-v7:27.1.1'
-
-    implementation 'com.google.code.gson:gson:2.8.5'
-
-    // TESTING ONLY (see other TESTING comments further up)
-//    compile(name: 'cloudsdk', ext: 'aar')
 }
+
 
 apply from: '../pom_generator_v1.gradle'
 apply from: '../bintray_upload_v1.gradle'
 
+   
 // disable insane, build-breaking doclint tool in Java 8
 if (JavaVersion.current().isJava8Compatible()) {
     tasks.withType(Javadoc) {

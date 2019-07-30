@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.EditText;
 
 import javax.inject.Inject;
 
+import android.support.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,6 +29,7 @@ import io.particle.android.sdk.utils.ui.ParticleUi;
 import io.particle.android.sdk.utils.ui.Ui;
 
 import static io.particle.android.sdk.utils.Py.truthy;
+
 
 public class TwoFactorActivity extends BaseActivity {
     public static final String EMAIL_EXTRA = "email";

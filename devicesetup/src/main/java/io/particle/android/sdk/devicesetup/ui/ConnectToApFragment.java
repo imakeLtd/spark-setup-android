@@ -11,10 +11,10 @@ import io.particle.android.sdk.devicesetup.ApConnector;
 import io.particle.android.sdk.devicesetup.ApConnector.Client;
 import io.particle.android.sdk.devicesetup.ParticleDeviceSetupLibrary;
 import io.particle.android.sdk.di.ApModule;
-import io.particle.android.sdk.utils.EZ;
 import io.particle.android.sdk.utils.SSID;
 import io.particle.android.sdk.utils.WifiFacade;
 import io.particle.android.sdk.utils.WorkerFragment;
+import io.particle.android.sdk.utils.ui.Fragments;
 import io.particle.android.sdk.utils.ui.Ui;
 
 
@@ -44,7 +44,7 @@ public class ConnectToApFragment extends WorkerFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        apConnectorClient = EZ.getCallbacksOrThrow(this, Client.class);
+        apConnectorClient = Fragments.getCallbacksOrThrow(this, Client.class);
     }
 
     @Override
