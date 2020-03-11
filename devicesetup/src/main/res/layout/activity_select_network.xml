@@ -26,6 +26,12 @@
             android:layout_height="wrap_content"
             android:text="@string/select_your_wifi_network"/>
 
+        <TextView
+            style="@style/SectionSubHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/compat_frequency"/>
+
         <fragment
             android:id="@+id/wifi_list_fragment"
             android:name="io.particle.android.sdk.devicesetup.ui.WifiListFragment"
