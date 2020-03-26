@@ -34,8 +34,8 @@ ext {
 
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     dexOptions {
         javaMaxHeapSize "2g"
@@ -43,7 +43,7 @@ android {
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -61,9 +61,8 @@ android {
     }
 
     lintOptions {
-        abortOnError true
+        abortOnError false
     }
-
 }
 
 // TESTING ONLY: to build against a locally built version of the cloud SDK, uncomment these
@@ -78,24 +77,26 @@ android {
 
 
 dependencies {
-    api fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    api 'io.particle:cloudsdk:0.5.1'
+    implementation 'io.particle:cloudsdk:1.0.0'
 
-    api 'com.squareup.phrase:phrase:1.0.3'
+    api 'com.squareup.phrase:phrase:1.1.0'
     api 'uk.co.chrisjenx:calligraphy:2.3.0'
     api 'com.segment.analytics.android:analytics:4.3.1'
     api 'com.madgag.spongycastle:core:1.58.0.0'
 
-    api 'com.google.dagger:dagger:2.15'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
-    api 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    api 'com.google.dagger:dagger:2.24'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.24'
 
-    api 'com.android.support:appcompat-v7:27.1.1'
-    api 'com.android.support:recyclerview-v7:27.1.1'
+    api 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
+    api 'androidx.appcompat:appcompat:1.1.0'
+    api 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation("com.squareup.okio:okio:2.5.0")
     implementation 'com.google.code.gson:gson:2.8.5'
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.1'
 
     // TESTING ONLY (see other TESTING comments further up)
 //    compile(name: 'cloudsdk', ext: 'aar')

@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/devicesetup/devicesetup.iml" filepath="$PROJECT_DIR$/devicesetup/devicesetup.iml" />
-      <module fileurl="file://$PROJECT_DIR$/exampleapp/exampleapp.iml" filepath="$PROJECT_DIR$/exampleapp/exampleapp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spark-setup-android.iml" filepath="$PROJECT_DIR$/spark-setup-android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/testapp/testapp.iml" filepath="$PROJECT_DIR$/testapp/testapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/devicesetup/devicesetup.iml" filepath="$PROJECT_DIR$/devicesetup/devicesetup.iml" group="spark-setup-android/devicesetup" />
+      <module fileurl="file://$PROJECT_DIR$/exampleapp/exampleapp.iml" filepath="$PROJECT_DIR$/exampleapp/exampleapp.iml" group="spark-setup-android/exampleapp" />
+      <module fileurl="file://$PROJECT_DIR$/spark-setup-android.iml" filepath="$PROJECT_DIR$/spark-setup-android.iml" group="spark-setup-android" />
+      <module fileurl="file://$PROJECT_DIR$/testapp/testapp.iml" filepath="$PROJECT_DIR$/testapp/testapp.iml" group="spark-setup-android/testapp" />
     </modules>
   </component>
 </project>

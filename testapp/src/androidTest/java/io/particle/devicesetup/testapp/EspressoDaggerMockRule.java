@@ -1,7 +1,7 @@
 package io.particle.devicesetup.testapp;
 
 import android.app.Application;
-import android.support.test.InstrumentationRegistry;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import io.particle.android.sdk.devicesetup.ParticleDeviceSetupLibrary;
 import io.particle.android.sdk.di.ApplicationComponent;

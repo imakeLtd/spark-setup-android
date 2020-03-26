@@ -7,8 +7,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 
@@ -16,7 +16,6 @@ import android.widget.ImageView;
 
 import com.squareup.phrase.Phrase;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import javax.inject.Inject;
@@ -39,7 +38,6 @@ import io.particle.android.sdk.utils.ui.Toaster;
 import io.particle.android.sdk.utils.ui.Ui;
 import io.particle.android.sdk.utils.ui.WebViewActivity;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -233,11 +231,11 @@ public class GetReadyActivity extends BaseActivity implements PermissionsFragmen
     }
 
     private void handleClaimCode(@NonNull ClaimCodeResponse result) {
-        log.d("Claim code generated: " + result.claimCode);
+        log.d("Claim code generated: " + result.getClaimCode());
 
-        DeviceSetupState.claimCode = result.claimCode;
-        if (truthy(result.deviceIds)) {
-            DeviceSetupState.claimedDeviceIds.addAll(Arrays.asList(result.deviceIds));
+        DeviceSetupState.claimCode = result.getClaimCode();
+        if (truthy(result.getDeviceIds())) {
+            DeviceSetupState.claimedDeviceIds.addAll(Arrays.asList(result.getDeviceIds()));
         }
 
         if (isFinishing()) {

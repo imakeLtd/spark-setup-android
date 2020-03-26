@@ -5,11 +5,11 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ListFragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.ListFragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +27,7 @@ import io.particle.android.sdk.devicesetup.model.WifiNetwork;
 import io.particle.android.sdk.utils.EZ;
 import io.particle.android.sdk.utils.TLog;
 import io.particle.android.sdk.utils.ui.Ui;
+import io.particle.android.sdk.utils.ui.Fragments;
 
 import static io.particle.android.sdk.utils.Py.set;
 
@@ -73,7 +74,8 @@ public class WifiListFragment<T extends WifiNetwork> extends ListFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        client = EZ.getCallbacksOrThrow(this, Client.class);
+
+        client = Fragments.getCallbacksOrThrow(this, Client.class);
         if (aggroLoadingHandler == null) {
             aggroLoadingHandler = new Handler();
         }

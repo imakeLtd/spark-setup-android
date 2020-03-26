@@ -1,13 +1,12 @@
 package io.particle.android.sdk.devicesetup.ui;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.util.Pair;
+import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.core.util.Pair;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
@@ -47,7 +46,6 @@ import static io.particle.android.sdk.utils.Py.list;
 
 import android.content.SharedPreferences;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 

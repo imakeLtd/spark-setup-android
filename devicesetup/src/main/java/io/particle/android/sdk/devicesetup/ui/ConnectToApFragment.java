@@ -3,7 +3,7 @@ package io.particle.android.sdk.devicesetup.ui;
 import android.content.Context;
 import android.net.wifi.WifiConfiguration;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import javax.inject.Inject;
 
@@ -15,6 +15,7 @@ import io.particle.android.sdk.utils.EZ;
 import io.particle.android.sdk.utils.SSID;
 import io.particle.android.sdk.utils.WifiFacade;
 import io.particle.android.sdk.utils.WorkerFragment;
+import io.particle.android.sdk.utils.ui.Fragments;
 import io.particle.android.sdk.utils.ui.Ui;
 
 
@@ -44,7 +45,7 @@ public class ConnectToApFragment extends WorkerFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        apConnectorClient = EZ.getCallbacksOrThrow(this, Client.class);
+        apConnectorClient = Fragments.getCallbacksOrThrow(this, Client.class);
     }
 
     @Override

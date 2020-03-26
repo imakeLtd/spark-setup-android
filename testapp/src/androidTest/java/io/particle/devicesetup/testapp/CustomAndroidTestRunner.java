@@ -2,7 +2,7 @@ package io.particle.devicesetup.testapp;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.test.runner.AndroidJUnitRunner;
+import androidx.test.runner.AndroidJUnitRunner;
 
 public class CustomAndroidTestRunner extends AndroidJUnitRunner {
 
