@@ -262,6 +262,15 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
 
     @Override
     public String getListEmptyText() {
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", 0);
+        String customiserStr = prefs.getString("particleCustomiser", ""); // getting String
+        JsonObject customiserObject = customiserStr.length() != 0 ? new JsonParser().parse(customiserStr).getAsJsonObject() : null;
+
+        dName = customiserObject != null ? customiserObject.get("deviceName").getAsString() : null;
+        if (dName == null || dName.length() == 0) {
+            dName = getString(R.string.device_name);
+        }
         return Phrase.from(this, R.string.empty_soft_ap_list_text)
                 .put("device_name", dName)
                 .format().toString();
