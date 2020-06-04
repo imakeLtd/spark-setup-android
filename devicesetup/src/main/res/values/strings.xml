@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Phrase-templated strings -->
-    <string name="msg_device_not_listed">{device_name} not listed here? Use the menu to select \'Connection Config\' and then \'Add WiFi\'</string>
+    <string name="msg_device_not_listed">{device_name} not listed here? Use the menu to select \'Network Config\' and then \'Add New Network\'</string>
     <string name="get_ready_title_text">Time to set up your {device_name}!</string>
     <string name="get_ready_text"><![CDATA[\n
 1. Attach your {device_name} to a Conical Fermenter to power it on\n\n\n
@@ -16,7 +16,7 @@
     <string name="log_in_header_text">{brand_name} Login</string>
     <string name="you_are_logged_in_as">You are logged in as: {username}</string>
     <string name="set_up_another_device">Set up another {device_name}</string>
-    <string name="empty_soft_ap_list_text">(No {device_name} devices found)</string>
+    <string name="empty_soft_ap_list_text">(No {device_name} found)</string>
     <string name="connecting_to_soft_ap">Connecting to {device_name}…</string>
     <string name="unable_to_connect_to_soft_ap">Please try running setup again after resetting your {device_name} and putting it back in connection mode if needed.</string>
 
