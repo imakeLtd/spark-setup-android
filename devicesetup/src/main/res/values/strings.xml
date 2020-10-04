@@ -18,7 +18,7 @@
     <string name="set_up_another_device">Set up another {device_name}</string>
     <string name="empty_soft_ap_list_text">(No {device_name} found)</string>
     <string name="connecting_to_soft_ap">Connecting to {device_name}…</string>
-    <string name="unable_to_connect_to_soft_ap">Please try running setup again after resetting your {device_name} and putting it back in connection mode if needed.</string>
+    <string name="unable_to_connect_to_soft_ap">Please restart your {device_name} and run the setup again. </string>
 
     <!-- regular strings -->
     <string name="set_up_your_product">Get Started</string>
