@@ -19,9 +19,9 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import android.support.v4.content.Loader;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
+import androidx.loader.content.Loader;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.particle.android.sdk.accountsetup.LoginActivity;

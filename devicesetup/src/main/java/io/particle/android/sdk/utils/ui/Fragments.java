@@ -1,9 +1,9 @@
 package io.particle.android.sdk.utils.ui;
 
-import android.support.annotation.RestrictTo;
-import android.support.annotation.RestrictTo.Scope;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.RestrictTo.Scope;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 
 @RestrictTo(Scope.LIBRARY)

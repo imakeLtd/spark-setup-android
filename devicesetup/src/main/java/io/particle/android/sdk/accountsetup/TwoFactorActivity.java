@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import javax.inject.Inject;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

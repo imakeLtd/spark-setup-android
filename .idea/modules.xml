@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/devicesetup/devicesetup.iml" filepath="$PROJECT_DIR$/devicesetup/devicesetup.iml" group="spark-setup-android/devicesetup" />
-      <module fileurl="file://$PROJECT_DIR$/exampleapp/exampleapp.iml" filepath="$PROJECT_DIR$/exampleapp/exampleapp.iml" group="spark-setup-android/exampleapp" />
-      <module fileurl="file://$PROJECT_DIR$/spark.iml" filepath="$PROJECT_DIR$/spark.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spark-setup-android.iml" filepath="$PROJECT_DIR$/spark-setup-android.iml" group="spark-setup-android" />
-      <module fileurl="file://$PROJECT_DIR$/testapp/testapp.iml" filepath="$PROJECT_DIR$/testapp/testapp.iml" group="spark-setup-android/testapp" />
+      <module fileurl="file://$PROJECT_DIR$/spark-setup-android.iml" filepath="$PROJECT_DIR$/spark-setup-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.iml" filepath="$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/exampleapp/spark-setup-android.exampleapp.iml" filepath="$PROJECT_DIR$/.idea/modules/exampleapp/spark-setup-android.exampleapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/testapp/spark-setup-android.testapp.iml" filepath="$PROJECT_DIR$/.idea/modules/testapp/spark-setup-android.testapp.iml" />
     </modules>
   </component>
 </project>

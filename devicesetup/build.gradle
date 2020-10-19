@@ -34,11 +34,11 @@ ext {
 
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 30
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 27
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
     }
@@ -67,15 +67,16 @@ dependencies {
 
     api 'io.particle:cloudsdk:0.5.1'
 
-    api 'com.squareup.phrase:phrase:1.0.3'
+    api 'com.squareup.phrase:phrase:1.1.0'
     api 'uk.co.chrisjenx:calligraphy:2.3.0'
     api 'com.segment.analytics.android:analytics:4.3.1'
     api 'com.madgag.spongycastle:core:1.58.0.0'
 
-    api 'com.google.dagger:dagger:2.15'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
-    api 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    api 'com.google.dagger:dagger:2.27'
+    implementation 'androidx.loader:loader:1.1.0'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.27'
+    api 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
     api 'com.android.support:appcompat-v7:27.1.1'
     api 'com.android.support:recyclerview-v7:27.1.1'

@@ -16,9 +16,9 @@ import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import io.particle.android.sdk.utils.Funcy.Predicate;
 
 import static io.particle.android.sdk.utils.Py.truthy;
