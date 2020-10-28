@@ -39,6 +39,8 @@ import io.particle.android.sdk.ui.BaseActivity;
 import io.particle.android.sdk.ui.NextActivitySelector;
 import io.particle.android.sdk.utils.Async;
 import io.particle.android.sdk.utils.SEGAnalytics;
+import io.particle.android.sdk.utils.SoftAPConfigRemover;
+import io.particle.android.sdk.utils.WifiFacade;
 import io.particle.android.sdk.utils.ui.ParticleUi;
 import io.particle.android.sdk.utils.ui.Ui;
 import io.particle.android.sdk.utils.ui.WebViewActivity;
@@ -152,6 +154,12 @@ public class SuccessActivity extends BaseActivity {
         skipRename = customiserObject != null ? customiserObject.get("skipRename").getAsBoolean() : skipRename;
         Log.d("Marko-Device-Setup", "Got appdefaults defaultDeviceName:" + defaultDeviceName);
         Log.d("Marko-Device-Setup", "Got  appdefaults skipRename:" + skipRename);
+
+        SoftAPConfigRemover softAPConfigRemover = new SoftAPConfigRemover(
+                this.getApplicationContext(),
+                WifiFacade.get(this.getApplicationContext())
+        );
+        softAPConfigRemover.removeAllSoftApConfigs();
 
         if (!isSuccess) {
             ImageView image = Ui.findView(this, R.id.result_image);
