@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.jakewharton.butterknife'
 
 // This is the library version used when deploying the artifact
-version = '0.7.0'
+version = '0.7.1'
 
 ext {
     bintrayRepo = 'android'

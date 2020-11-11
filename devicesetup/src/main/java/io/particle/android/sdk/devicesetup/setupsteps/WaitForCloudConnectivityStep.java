@@ -6,11 +6,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import io.particle.android.sdk.utils.EZ;
+import io.particle.android.sdk.utils.SoftAPConfigRemover;
+import io.particle.android.sdk.utils.WifiFacade;
 
 
 public class WaitForCloudConnectivityStep extends SetupStep {
 
-    private static final int MAX_RETRIES_REACHABILITY = 1;
+    private static final int MAX_RETRIES_REACHABILITY = 10;
 
     private final Context ctx;
 
@@ -31,6 +33,9 @@ public class WaitForCloudConnectivityStep extends SetupStep {
             isAPIHostReachable = checkIsApiHostAvailable();
             log.d("Checked for reachability " + reachabilityRetries + " times");
             reachabilityRetries++;
+            if (reachabilityRetries == 3) {
+                reenableWifiNetworks();
+            }
         }
         if (!isAPIHostReachable) {
             throw new SetupStepException("Unable to reach API host");
@@ -67,6 +72,14 @@ public class WaitForCloudConnectivityStep extends SetupStep {
 //        }
 
         return true;
+    }
+
+    private void reenableWifiNetworks() {
+        SoftAPConfigRemover softAPConfigRemover = new SoftAPConfigRemover(
+                ctx,
+                WifiFacade.get(ctx)
+        );
+        softAPConfigRemover.reenableWifiNetworks();
     }
 
 }
