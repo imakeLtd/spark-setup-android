@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.loader.content.Loader;
 import androidx.appcompat.app.AlertDialog;
 import android.view.View;
+import android.view.WindowManager;
 
 import java.util.Set;
 
@@ -57,6 +58,7 @@ public class SelectNetworkActivity extends RequiresWifiScansActivity
         super.onCreate(savedInstanceState);
         ParticleDeviceSetupLibrary.getInstance().getApplicationComponent().activityComponentBuilder()
                 .apModule(new ApModule()).build().inject(this);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         SEGAnalytics.screen("Device Setup: Select Network Screen");
         softApSSID = getIntent().getParcelableExtra(EXTRA_SOFT_AP);
         setContentView(R.layout.activity_select_network);

@@ -25,6 +25,7 @@ public class WaitForCloudConnectivityStep extends SetupStep {
     protected void onRunStep() throws SetupStepException {
         // Wait for just a couple seconds for a WifiFacade connection if possible, in case we
         // flip from the soft AP, to mobile data, and then to WifiFacade in rapid succession.
+        reenableWifiNetworks();
         EZ.threadSleep(2000);
         int reachabilityRetries = 0;
         boolean isAPIHostReachable = checkIsApiHostAvailable();
@@ -33,9 +34,6 @@ public class WaitForCloudConnectivityStep extends SetupStep {
             isAPIHostReachable = checkIsApiHostAvailable();
             log.d("Checked for reachability " + reachabilityRetries + " times");
             reachabilityRetries++;
-            if (reachabilityRetries == 3) {
-                reenableWifiNetworks();
-            }
         }
         if (!isAPIHostReachable) {
             throw new SetupStepException("Unable to reach API host");

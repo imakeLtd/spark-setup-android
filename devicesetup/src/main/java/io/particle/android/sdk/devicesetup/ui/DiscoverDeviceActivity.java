@@ -48,6 +48,7 @@ import io.particle.android.sdk.utils.ui.WebViewActivity;
 import static io.particle.android.sdk.utils.Py.truthy;
 
 import android.content.SharedPreferences;
+import android.view.WindowManager;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -109,6 +110,7 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
                 .apModule(new ApModule()).build().inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover_device);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ButterKnife.bind(this);
         SEGAnalytics.screen("Device Setup: Device discovery screen");
 

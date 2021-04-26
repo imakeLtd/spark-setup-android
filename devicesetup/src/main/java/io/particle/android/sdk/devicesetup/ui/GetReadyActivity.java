@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.squareup.phrase.Phrase;
@@ -60,6 +61,7 @@ public class GetReadyActivity extends BaseActivity implements PermissionsFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_ready);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ParticleDeviceSetupLibrary.getInstance().getApplicationComponent().activityComponentBuilder()
                 .apModule(new ApModule()).build().inject(this);
         SEGAnalytics.screen("Device Setup: Get ready screen");

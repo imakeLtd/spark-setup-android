@@ -53,7 +53,7 @@
     <string name="select_your_wifi_network">Select your Wi-Fi network</string>
     <string name="compat_frequency">Note: This device only supports 2.4 GHz networks. </string>
     <string name="no_wifi_networks_found">(No Wi-Fi networks found)</string>
-    <string name="check_for_internet_connectivity">Checking for internet connectivity</string>
+    <string name="check_for_internet_connectivity">Waiting for internet connectivity</string>
     <string name="connect_to_wifi_network">Connecting to Wi-Fi network</string>
     <string name="reconnect_to_wifi_network">Disconnecting from softAP</string>
     <string name="configure_device_wifi_credentials">Configuring device Wi-Fi credentials</string>
