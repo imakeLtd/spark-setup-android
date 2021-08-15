@@ -11,7 +11,7 @@
     <drawable name="brand_image_vertical">@drawable/particle_vertical_blue</drawable>
     <drawable name="screen_background">@drawable/emptybackground2</drawable>
     <color name="brand_image_background_color">#000000</color>
-    <color name="screen_background_color">#242A31</color>
+    <color name="screen_background_color">#F2F2F2</color>
     <string name="mode_button_name">Setup button</string>
     <string name="listen_mode_led_color_name">blue</string>
     <string name="network_name_prefix">Grainfather-Conical</string>
@@ -37,6 +37,7 @@
     <color name="link_text_color">@android:color/white</color>
     <color name="link_text_bg">#19AAAAAA</color>
     <color name="error_text_color">#FE4747</color>
+    <color name="body_text_color">#000000</color>
 
     <color name="register_field_background_color_enabled">@color/form_field_background</color>
     <color name="register_field_background_color_disabled">#AACCCCCC</color>

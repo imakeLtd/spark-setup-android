@@ -34,6 +34,10 @@
         <item name="android:textColor">@color/normal_text_color</item>
     </style>
 
+    <style name="BodyText">
+        <item name="android:textColor">@color/normal_text_color</item>
+    </style>
+
 
     <style name="LinkText" parent="android:Widget.Holo.TextView">
         <item name="android:padding">4dp</item>
