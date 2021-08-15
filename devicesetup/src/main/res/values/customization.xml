@@ -33,7 +33,7 @@
 
     <color name="page_background_color">#F2F2F2</color>
     <color name="form_field_background_color">@android:color/white</color>
-    <color name="normal_text_color">@android:color/white</color>
+    <color name="normal_text_color">#FF440A</color>
     <color name="link_text_color">@android:color/white</color>
     <color name="link_text_bg">#19AAAAAA</color>
     <color name="error_text_color">#FE4747</color>
@@ -42,10 +42,10 @@
     <color name="register_field_background_color_disabled">#AACCCCCC</color>
 
 
-    <color name="element_background_color">#FFBA05</color>
+    <color name="element_background_color">#00CCB8</color>
     <color name="element_background_color_dark">#0083A6</color>
-    <color name="element_text_color">@android:color/white</color>
-    <color name="element_tint_color">@android:color/white</color>
+    <color name="element_text_color">#141414</color>
+    <color name="element_tint_color">#00CCB8</color>
     <color name="element_text_disabled_color">#E0E0E0</color>
 
     <!-- The font names below are the paths to the font you want to use, relative to the assets
@@ -57,10 +57,10 @@
             <string name="normal_text_font_name">fonts/comic_sans.ttf</string>
 
     -->
-    <string name="normal_text_font_name">fonts/roboto_regular.ttf</string>
-    <string name="bold_text_font_name">fonts/roboto_medium.ttf</string>
-    <string name="italic_text_font_name">fonts/roboto_thin_italic.ttf</string>
-    <string name="header_text_font_name">fonts/roboto_light.ttf</string>
+    <string name="normal_text_font_name">fonts/GFKEverett-Regular.otf</string>
+    <string name="bold_text_font_name">fonts/TWKEverett-Bold.otf</string>
+    <string name="italic_text_font_name">fonts/GFKEverett-Regular.otf</string>
+    <string name="header_text_font_name">fonts/GFKEverett-Regular.otf</string>
 
     <!-- enable invite codes, other APIs -->
     <!-- {@deprecated Use productMode instead.} -->
@@ -82,7 +82,7 @@
     <!-- As named, just a darker variant of the primary color, used to color the status bar -->
     <color name="primary_color_dark">@color/shaded_background</color>
     <!-- accent_color is used as the default value for tinting widgets -->
-    <color name="accent_color">#FFBA05</color>
+    <color name="accent_color">#00CCB8</color>
     <color name="system_bar_bg">@android:color/black</color>
 
     <!-- the distance between EditText elements in a "form" like the register and login screens -->
