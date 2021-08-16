@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -93,6 +94,8 @@ public class WifiListFragment<T extends WifiNetwork> extends ListFragment
         super.onActivityCreated(savedInstanceState);
         getListView().setVerticalScrollBarEnabled(true);
         getListView().setScrollbarFadingEnabled(false);
+        TextView emptyTextView = (TextView) getListView().getEmptyView();
+        emptyTextView.setTextColor(getResources().getColor(R.color.body_text_color));
     }
 
     @Override
