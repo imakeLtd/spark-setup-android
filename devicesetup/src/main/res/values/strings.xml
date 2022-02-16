@@ -3,12 +3,12 @@
 
     <!-- Phrase-templated strings -->
     <string name="msg_device_not_listed">{device_name} not listed here? Use the menu to select \'Network Config\' and then \'Add New Network\'</string>
-    <string name="get_ready_title_text">Time to set up your {device_name}!</string>
+    <string name="get_ready_title_text">TIME TO SET UP YOUR {device_name}!</string>
     <string name="get_ready_text"><![CDATA[\n
 1. Attach your {device_name} to a Conical Fermenter to power it on\n\n\n
 2. The device should be in connection mode. If it\'s not, use the menu to select \'Connection Config\' and then \'Add WiFi\'\n\n\n
 3. Make sure your Android device is connected to the internet]]></string>
-    <string name="wifi_list_header_text">Choose your {device_name}</string>
+    <string name="wifi_list_header_text">CHOOSE YOUR {device_name}</string>
     <string name="connecting_text">Your {device_name} is connecting to</string>
     <string name="your_device_is_connected">Your {device_name} is connected!</string>
     <string name="msg_create_account_disclaimer"><![CDATA[By clicking "SIGN UP" you are indicating that you have read and agreed to the <a href="{tos_link}">Terms of Service</a> and <a href="{privacy_policy_link}">Privacy Policy.</a>]]></string>
@@ -42,7 +42,7 @@
     <string name="activation_code">activation code</string>
     <string name="troubleshooting">&lt;u&gt;Troubleshooting&lt;/u&gt;</string>
     <string name="im_ready">Ready</string>
-    <string name="connecting">Connecting</string>
+    <string name="connecting">CONNECTING</string>
     <string name="connecting_text_2">This can take about a minute.</string>
     <string name="cancel">Cancel</string>
     <string name="test_connection">Test connection</string>
@@ -50,7 +50,7 @@
     <string name="you_did_it">YOU DID IT</string>
     <string name="rescan">Rescan</string>
     <string name="log_out">Log out</string>
-    <string name="select_your_wifi_network">Select your Wi-Fi network</string>
+    <string name="select_your_wifi_network">SELECT YOUR WI-FI NETWORK</string>
     <string name="compat_frequency">Note: This device only supports 2.4 GHz networks. </string>
     <string name="no_wifi_networks_found">(No Wi-Fi networks found)</string>
     <string name="check_for_internet_connectivity">Waiting for internet connectivity</string>
@@ -62,12 +62,12 @@
     <string name="action_done">Done</string>
     <string name="title_activity_password_reset">Password Reset</string>
     <string name="manual_network_name">Manual network name</string>
-    <string name="manual_network_name_entry">Manual network name entry</string>
+    <string name="manual_network_name_entry">MANUAL NETWORK NAME ENTRY</string>
     <string name="hint_network_name">network name</string>
     <string name="network_requires_password">Network requires password</string>
     <string name="reset_password">Reset Password</string>
     <string name="request_password_reset">Request password reset</string>
-    <string name="this_network_requires_a_password">This network requires a password</string>
+    <string name="this_network_requires_a_password">THIS NETWORK REQUIRES A PASSWORD</string>
     <string name="connect">Connect</string>
     <string name="password">Password</string>
     <string name="show_password">Show password</string>

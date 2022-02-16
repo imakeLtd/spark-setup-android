@@ -83,7 +83,7 @@ public class GetReadyActivity extends BaseActivity implements PermissionsFragmen
 
         Ui.setText(this, R.id.get_ready_text_title,
                 Phrase.from(this, R.string.get_ready_title_text)
-                        .put("device_name", deviceName)
+                        .put("device_name", deviceName.toUpperCase())
                         .format());
 
 

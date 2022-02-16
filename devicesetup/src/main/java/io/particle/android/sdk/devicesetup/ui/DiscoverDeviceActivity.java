@@ -135,7 +135,7 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
 
         Ui.setText(this, R.id.wifi_list_header,
                 Phrase.from(this, R.string.wifi_list_header_text)
-                        .put("device_name", dName)
+                        .put("device_name", dName.toUpperCase())
                         .format()
         );
 
@@ -274,7 +274,7 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
             dName = getString(R.string.device_name);
         }
         return Phrase.from(this, R.string.empty_soft_ap_list_text)
-                .put("device_name", dName)
+                .put("device_name", dName.toUpperCase())
                 .format().toString();
     }
 

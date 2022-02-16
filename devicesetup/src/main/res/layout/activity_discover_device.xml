@@ -53,7 +53,7 @@
             android:padding="8dp"
             android:text="@string/msg_device_not_listed"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/body_text_color"
+            android:textColor="@color/gf_gray_text_color"
             android:textSize="@dimen/text_size_nano"/>
 
         <TextView

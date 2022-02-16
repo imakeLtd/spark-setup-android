@@ -17,7 +17,7 @@
     </style>
 
     <style name="SectionHeader">
-        <item name="fontPath">@string/header_text_font_name</item>
+        <item name="fontPath">@string/bold_text_font_name</item>
         <item name="android:textSize">@dimen/material_text_size_headline</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
@@ -31,7 +31,7 @@
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/normal_text_color</item>
+        <item name="android:textColor">@color/gf_gray_text_color</item>
     </style>
 
     <style name="BodyText">

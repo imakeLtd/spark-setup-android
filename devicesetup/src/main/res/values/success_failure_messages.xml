@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="setup_success_summary">Setup completed successfully!</string>
+    <string name="setup_success_summary">SETUP COMPLETED SUCCESSFULLY!</string>
     <string name="setup_success_details">Congrats! You\'ve successfully set up your {device_name}!</string>
 
     <string name="setup_success_unknown_ownership_summary">Setup completed!</string>
