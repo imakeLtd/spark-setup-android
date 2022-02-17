@@ -9,6 +9,7 @@
     android:background="@color/shaded_background"
     android:contentDescription="@null"
     android:padding="12dp"
+    android:translationZ="10dp"
     android:scaleType="center"
     android:src="@drawable/brand_image_horizontal"
     tools:ignore="Overdraw"/>
