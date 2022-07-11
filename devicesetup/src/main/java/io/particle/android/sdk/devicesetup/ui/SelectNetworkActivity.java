@@ -23,7 +23,6 @@ import io.particle.android.sdk.devicesetup.commands.data.WifiSecurity;
 import io.particle.android.sdk.devicesetup.loaders.ScanApCommandLoader;
 import io.particle.android.sdk.devicesetup.model.ScanAPCommandResult;
 import io.particle.android.sdk.di.ApModule;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.SSID;
 import io.particle.android.sdk.utils.WifiFacade;
 import io.particle.android.sdk.utils.ui.ParticleUi;
@@ -59,7 +58,6 @@ public class SelectNetworkActivity extends RequiresWifiScansActivity
         ParticleDeviceSetupLibrary.getInstance().getApplicationComponent().activityComponentBuilder()
                 .apModule(new ApModule()).build().inject(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        SEGAnalytics.screen("Device Setup: Select Network Screen");
         softApSSID = getIntent().getParcelableExtra(EXTRA_SOFT_AP);
         setContentView(R.layout.activity_select_network);
         ButterKnife.bind(this);
@@ -84,10 +82,8 @@ public class SelectNetworkActivity extends RequiresWifiScansActivity
         wifiListFragment.stopAggroLoading();
 
         if (selectedNetwork.isSecured()) {
-            SEGAnalytics.track("Device Setup: Selected secured network");
             startActivity(PasswordEntryActivity.buildIntent(this, softApSSID, selectedNetwork.scan));
         } else {
-            SEGAnalytics.track("Device Setup: Selected open network");
             SSID softApSSID = wifiFacade.getCurrentlyConnectedSSID();
             startActivity(ConnectingActivity.buildIntent(this, softApSSID, selectedNetwork.scan));
         }

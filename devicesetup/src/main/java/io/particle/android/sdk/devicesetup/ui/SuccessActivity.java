@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.segment.analytics.Properties;
 import com.squareup.phrase.Phrase;
 
 import java.io.IOException;
@@ -38,7 +37,6 @@ import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.ui.BaseActivity;
 import io.particle.android.sdk.ui.NextActivitySelector;
 import io.particle.android.sdk.utils.Async;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.SoftAPConfigRemover;
 import io.particle.android.sdk.utils.WifiFacade;
 import io.particle.android.sdk.utils.ui.ParticleUi;
@@ -137,7 +135,6 @@ public class SuccessActivity extends BaseActivity {
         ParticleDeviceSetupLibrary.getInstance().getApplicationComponent().activityComponentBuilder()
                 .apModule(new ApModule()).build().inject(this);
         ButterKnife.bind(this);
-        SEGAnalytics.screen("Device Setup: Setup Result Screen");
 
         int resultCode = getIntent().getIntExtra(EXTRA_RESULT_CODE, -1);
         isSuccess = list(RESULT_SUCCESS, RESULT_SUCCESS_UNKNOWN_OWNERSHIP).contains(resultCode);
@@ -165,27 +162,8 @@ public class SuccessActivity extends BaseActivity {
             ImageView image = Ui.findView(this, R.id.result_image);
             image.setImageResource(R.drawable.fail);
             deviceNameView.setVisibility(View.GONE);
-            Properties analyticProperties = new Properties();
-
-            switch (resultCode) {
-                case RESULT_FAILURE_CLAIMING:
-                    analyticProperties.putValue("reason", "claiming failed");
-                    break;
-                case RESULT_FAILURE_CONFIGURE:
-                    analyticProperties.putValue("reason", "cannot configure");
-                    break;
-                case RESULT_FAILURE_NO_DISCONNECT:
-                    analyticProperties.putValue("reason", "cannot disconnect");
-                    break;
-                case RESULT_FAILURE_LOST_CONNECTION_TO_DEVICE:
-                    analyticProperties.putValue("reason", "lost connection");
-                    break;
-            }
-            SEGAnalytics.track("Device Setup: Failure", analyticProperties);
         } else {
             showDeviceName(particleCloud);
-            SEGAnalytics.track("Device Setup: Success", RESULT_SUCCESS_UNKNOWN_OWNERSHIP == resultCode ?
-                    new Properties().putValue("reason", "not claimed") : null);
         }
 
         Pair<? extends CharSequence, CharSequence> resultStrings = buildUiStringPair(resultCode);

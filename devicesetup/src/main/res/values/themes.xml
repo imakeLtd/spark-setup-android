@@ -18,12 +18,12 @@
         <!-- You can also set colorControlNormal, colorControlActivated
              colorControlHighlight, and colorSwitchThumbNormal. -->
 
-        <!--        <item name="android:textColor">@color/normal_text_color</item>-->
         <!--<item name="android:windowBackground">@drawable/screen_background</item>-->
         <item name="android:windowBackground">@color/screen_background_color</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="android:textAppearanceLargePopupMenu">@style/PopupMenuText</item>
         <item name="android:textAppearanceSmallPopupMenu">@style/PopupMenuText</item>
+        <item name="android:fontFamily">@font/twkeverett_regular</item>
     </style>
 
     <style name="PopupMenuParent">
@@ -58,7 +58,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

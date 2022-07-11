@@ -24,7 +24,6 @@ import io.particle.android.sdk.devicesetup.loaders.ScanApCommandLoader;
 import io.particle.android.sdk.devicesetup.model.ScanAPCommandResult;
 import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.ui.BaseActivity;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.SSID;
 import io.particle.android.sdk.utils.WifiFacade;
 import io.particle.android.sdk.utils.ui.ParticleUi;
@@ -52,10 +51,8 @@ public class ManualNetworkEntryActivity extends BaseActivity
     @OnCheckedChanged(R2.id.network_requires_password)
     protected void onSecureCheckedChange(boolean isChecked) {
         if (isChecked) {
-            SEGAnalytics.track("Device Setup: Selected secured network");
             wifiSecurityType = WifiSecurity.WPA2_AES_PSK.asInt();
         } else {
-            SEGAnalytics.track("Device Setup: Selected open network");
             wifiSecurityType = WifiSecurity.OPEN.asInt();
         }
     }
@@ -65,7 +62,6 @@ public class ManualNetworkEntryActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         ParticleDeviceSetupLibrary.getInstance().getApplicationComponent().activityComponentBuilder()
                 .apModule(new ApModule()).build().inject(this);
-        SEGAnalytics.screen("Device Setup: Manual network entry screen");
         softApSSID = getIntent().getParcelableExtra(EXTRA_SOFT_AP);
 
         setContentView(R.layout.activity_manual_network_entry);

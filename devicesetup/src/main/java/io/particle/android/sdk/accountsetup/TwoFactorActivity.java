@@ -23,7 +23,6 @@ import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.ui.BaseActivity;
 import io.particle.android.sdk.ui.NextActivitySelector;
 import io.particle.android.sdk.utils.Async;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.TLog;
 import io.particle.android.sdk.utils.ui.ParticleUi;
 import io.particle.android.sdk.utils.ui.Ui;
@@ -104,7 +103,6 @@ public class TwoFactorActivity extends BaseActivity {
                 .inject(this);
         // Bind views, onclick listeners, etc.
         ButterKnife.bind(this);
-        SEGAnalytics.screen("Auth: Two Factor Screen");
 
         ParticleUi.enableBrandLogoInverseVisibilityAgainstSoftKeyboard(this);
 
@@ -132,8 +130,6 @@ public class TwoFactorActivity extends BaseActivity {
 
             @Override
             public void onSuccess(@NonNull Void result) {
-                SEGAnalytics.identify(email);
-                SEGAnalytics.track("Auth: Two Factor success");
                 log.d("Logged in...");
 
                 if (!isFinishing()) {
@@ -149,7 +145,6 @@ public class TwoFactorActivity extends BaseActivity {
             @Override
             public void onFailure(@NonNull ParticleCloudException error) {
                 log.d("onFailed(): " + error.getMessage());
-                SEGAnalytics.track("Auth: Two Factor failure");
 
                 if (!isFinishing()) {
                     ParticleUi.showParticleButtonProgress(TwoFactorActivity.this, R.id.action_verify, false);

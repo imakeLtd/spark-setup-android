@@ -32,7 +32,6 @@ import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.ui.BaseActivity;
 import io.particle.android.sdk.utils.Async;
 import io.particle.android.sdk.utils.Async.AsyncApiWorker;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.SoftAPConfigRemover;
 import io.particle.android.sdk.utils.TLog;
 import io.particle.android.sdk.utils.ui.ParticleUi;
@@ -64,7 +63,6 @@ public class GetReadyActivity extends BaseActivity implements PermissionsFragmen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ParticleDeviceSetupLibrary.getInstance().getApplicationComponent().activityComponentBuilder()
                 .apModule(new ApModule()).build().inject(this);
-        SEGAnalytics.screen("Device Setup: Get ready screen");
         softAPConfigRemover.removeAllSoftApConfigs();
         softAPConfigRemover.reenableWifiNetworks();
 

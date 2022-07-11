@@ -37,7 +37,6 @@ import io.particle.android.sdk.devicesetup.setupsteps.SetupStepException;
 import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.ui.BaseActivity;
 import io.particle.android.sdk.utils.EZ;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.SSID;
 import io.particle.android.sdk.utils.SoftAPConfigRemover;
 import io.particle.android.sdk.utils.TLog;
@@ -112,7 +111,6 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
         setContentView(R.layout.activity_discover_device);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ButterKnife.bind(this);
-        SEGAnalytics.screen("Device Setup: Device discovery screen");
 
         softAPConfigRemover.removeAllSoftApConfigs();
         softAPConfigRemover.reenableWifiNetworks();

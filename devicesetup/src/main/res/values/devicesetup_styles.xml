@@ -1,7 +1,7 @@
 <resources>
 
     <style name="SparkButton" parent="Widget.AppCompat.Button">
-        <item name="fontPath">@string/bold_text_font_name</item>
+        <item name="android:fontFamily">@font/twkeverett_bold</item>
         <item name="android:textColor">@drawable/button_text_color_selector</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:layout_height">60dp</item>
@@ -17,7 +17,7 @@
     </style>
 
     <style name="SectionHeader">
-        <item name="fontPath">@string/bold_text_font_name</item>
+        <item name="android:fontFamily">@font/twkeverett_bold</item>
         <item name="android:textSize">@dimen/material_text_size_headline</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
@@ -26,7 +26,7 @@
     </style>
 
     <style name="SectionSubHeader">
-        <item name="fontPath">@string/header_text_font_name</item>
+        <item name="android:fontFamily">@font/twkeverett_bold</item>
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingBottom">10dp</item>

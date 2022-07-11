@@ -56,7 +56,7 @@
 
                     <TextView
                         android:id="@+id/network_name"
-                        fontPath="@string/bold_text_font_name"
+                        android:fontFamily="@font/twkeverett_bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"

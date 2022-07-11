@@ -35,7 +35,6 @@ import io.particle.android.sdk.devicesetup.setupsteps.WaitForCloudConnectivitySt
 import io.particle.android.sdk.devicesetup.setupsteps.WaitForDisconnectionFromDeviceStep;
 import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.ui.BaseActivity;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.SSID;
 import io.particle.android.sdk.utils.SoftAPConfigRemover;
 import io.particle.android.sdk.utils.TLog;
@@ -106,7 +105,6 @@ public class ConnectingActivity extends RequiresWifiScansActivity {
         ParticleDeviceSetupLibrary.getInstance().getApplicationComponent().activityComponentBuilder()
                 .apModule(new ApModule()).build().inject(this);
         ButterKnife.bind(this);
-        SEGAnalytics.screen("Device Setup: Connecting progress screen");
         publicKey = DeviceSetupState.publicKey;
         deviceSoftApSsid = getIntent().getParcelableExtra(EXTRA_SOFT_AP_SSID);
 
