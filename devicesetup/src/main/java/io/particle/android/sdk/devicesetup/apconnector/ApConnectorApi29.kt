@@ -13,10 +13,10 @@ import io.particle.android.sdk.devicesetup.apconnector.ApConnector.Client
 import io.particle.android.sdk.devicesetup.ui.DeviceSetupState;
 import io.particle.android.sdk.utils.SSID
 import io.particle.android.sdk.utils.WifiFacade
-import mu.KotlinLogging
+//import mu.KotlinLogging
 
 
-private val log = KotlinLogging.logger {}
+//private val log = KotlinLogging.logger {}
 
 
 @RequiresApi(VERSION_CODES.LOLLIPOP)
@@ -35,7 +35,7 @@ class ApConnectorApi29(
     override fun connectToAP(config: WifiConfiguration, client: Client) {
         val configSSID = SSID.from(config)
 
-        log.info { "preparing to connect to $configSSID..." }
+//        log.info { "preparing to connect to $configSSID..." }
 
         decoratingClient.wrappedClient = client
         networkCallbacks = buildNetworkCallbacks(config)
@@ -44,7 +44,7 @@ class ApConnectorApi29(
         // are we already connected to the right AP?  (this could happen on retries)
         if (ApConnectorApi21.isAlreadyConnectedToTargetNetwork(currentConnectionInfo, configSSID)) {
             // we're already connected to this AP, nothing to do.
-            log.info { "we're already connected to $configSSID, nothing to do." }
+//            log.info { "we're already connected to $configSSID, nothing to do." }
             decoratingClient.onApConnectionSuccessful(config)
             return
         }
@@ -59,7 +59,7 @@ class ApConnectorApi29(
             .setNetworkSpecifier(wifiNetworkSpecifier)
             .build()
 
-        log.info { "Requesting to connect to $configSSID" }
+//        log.info { "Requesting to connect to $configSSID" }
         connectivityManager.requestNetwork(request, networkCallbacks!!)
     }
 
@@ -75,35 +75,35 @@ class ApConnectorApi29(
         return object : ConnectivityManager.NetworkCallback() {
 
             override fun onAvailable(network: Network) {
-                log.info { "onAvailable: $network" }
+//                log.info { "onAvailable: $network" }
                 decoratingClient.onApConnectionSuccessful(config)
             }
 
             override fun onBlockedStatusChanged(network: Network, blocked: Boolean) {
-                log.info { "onBlockedStatusChanged: $network, blocked=$blocked" }
+//                log.info { "onBlockedStatusChanged: $network, blocked=$blocked" }
             }
 
             override fun onCapabilitiesChanged(
                 network: Network,
                 networkCapabilities: NetworkCapabilities
             ) {
-                log.info { "onCapabilitiesChanged: $network, caps: $networkCapabilities" }
+//                log.info { "onCapabilitiesChanged: $network, caps: $networkCapabilities" }
             }
 
             override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
-                log.info { "onLinkPropertiesChanged: $network" }
+//                log.info { "onLinkPropertiesChanged: $network" }
             }
 
             override fun onLosing(network: Network, maxMsToLive: Int) {
-                log.info { "onLosing: $network" }
+//                log.info { "onLosing: $network" }
             }
 
             override fun onLost(network: Network) {
-                log.info { "onLost: $network" }
+//                log.info { "onLost: $network" }
             }
 
             override fun onUnavailable() {
-                log.info { "onUnavailable" }
+//                log.info { "onUnavailable" }
             }
         }
     }
