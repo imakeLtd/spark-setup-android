@@ -102,7 +102,13 @@ public class SoftAPConfigRemover {
 
             if (DeviceSetupState.networkCallbacks != null) {
                 Log.d("GFDebug", "unregisterNetworkCallbacks connMan.unregisterNetworkCallback...");
-                connMan.unregisterNetworkCallback(DeviceSetupState.networkCallbacks);
+                try {
+                    connMan.unregisterNetworkCallback(DeviceSetupState.networkCallbacks);
+                }
+                catch (IllegalArgumentException exception){
+                    // network is already unregistered / NetworkCallback was not registered
+                    Log.d("GFDebug", "unregisterNetworkCallback error");
+                }
                 DeviceSetupState.networkCallbacks = null;
             }
         }
