@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.jakewharton.butterknife'
 
 // This is the library version used when deploying the artifact
-version = '0.7.7'
+version = '0.7.8'
 
 ext {
     bintrayRepo = 'android'
@@ -36,13 +36,11 @@ ext {
 
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 33
     }
 
     compileOptions {
@@ -100,7 +98,10 @@ apply from: '../bintray_upload_v1.gradle'
 // disable insane, build-breaking doclint tool in Java 8
 if (JavaVersion.current().isJava8Compatible()) {
     tasks.withType(Javadoc) {
+        failOnError false
         //noinspection SpellCheckingInspection
         options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+        options.addStringOption('charSet', 'UTF-8')
     }
 }
