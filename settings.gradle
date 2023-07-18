@@ -1,1 +1,1 @@
-include ':devicesetup', ':exampleapp', ':testapp'
+include ':devicesetup'

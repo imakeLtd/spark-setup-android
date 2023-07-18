@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/spark-setup-android.iml" filepath="$PROJECT_DIR$/spark-setup-android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.iml" filepath="$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.main.iml" filepath="$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/exampleapp/spark-setup-android.exampleapp.iml" filepath="$PROJECT_DIR$/.idea/modules/exampleapp/spark-setup-android.exampleapp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/exampleapp/spark-setup-android.exampleapp.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/exampleapp/spark-setup-android.exampleapp.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/exampleapp/spark-setup-android.exampleapp.main.iml" filepath="$PROJECT_DIR$/.idea/modules/exampleapp/spark-setup-android.exampleapp.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/exampleapp/spark-setup-android.exampleapp.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/exampleapp/spark-setup-android.exampleapp.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/testapp/spark-setup-android.testapp.iml" filepath="$PROJECT_DIR$/.idea/modules/testapp/spark-setup-android.testapp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/testapp/spark-setup-android.testapp.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/testapp/spark-setup-android.testapp.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/testapp/spark-setup-android.testapp.main.iml" filepath="$PROJECT_DIR$/.idea/modules/testapp/spark-setup-android.testapp.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/testapp/spark-setup-android.testapp.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/testapp/spark-setup-android.testapp.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spark-setup-android-test.iml" filepath="$PROJECT_DIR$/.idea/modules/spark-setup-android-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android-test.devicesetup.iml" filepath="$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android-test.devicesetup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android-test.devicesetup.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android-test.devicesetup.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android-test.devicesetup.main.iml" filepath="$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android-test.devicesetup.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android-test.devicesetup.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android-test.devicesetup.unitTest.iml" />
     </modules>
   </component>
 </project>

@@ -118,7 +118,7 @@ public class SuccessActivity extends BaseActivity {
                 finishSetup(v.getContext(), deviceNameView.getText().toString(), true);
             }
         } else {
-            leaveActivity(v.getContext(), false);
+            leaveActivity(v.getContext(), isSuccess);
         }
     }
 
@@ -138,8 +138,7 @@ public class SuccessActivity extends BaseActivity {
 
         int resultCode = getIntent().getIntExtra(EXTRA_RESULT_CODE, -1);
         isSuccess = list(RESULT_SUCCESS, RESULT_SUCCESS_UNKNOWN_OWNERSHIP).contains(resultCode);
-
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", 0);
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", MODE_PRIVATE);
         String customiserStr = prefs.getString("particleCustomiser", ""); // getting String
         JsonObject customiserObject = customiserStr.length() != 0 ? new JsonParser().parse(customiserStr).getAsJsonObject() : null;
 
@@ -149,8 +148,9 @@ public class SuccessActivity extends BaseActivity {
         }
         defaultDeviceName = customiserObject != null ? customiserObject.get("deviceDefaultName").getAsString() : defaultDeviceName;
         skipRename = customiserObject != null ? customiserObject.get("skipRename").getAsBoolean() : skipRename;
-        Log.d("Marko-Device-Setup", "Got appdefaults defaultDeviceName:" + defaultDeviceName);
-        Log.d("Marko-Device-Setup", "Got  appdefaults skipRename:" + skipRename);
+        Log.d("Device-Setup", "Got appdefaults defaultDeviceName:" + defaultDeviceName);
+        Log.d("Device-Setup", "Got  appdefaults skipRename:" + skipRename);
+        Log.d("Device-Setup", "EXTRA_DEVICE_ID:" + getIntent().getStringExtra(EXTRA_DEVICE_ID));
 
         SoftAPConfigRemover softAPConfigRemover = new SoftAPConfigRemover(
                 this.getApplicationContext(),
@@ -163,6 +163,9 @@ public class SuccessActivity extends BaseActivity {
             image.setImageResource(R.drawable.fail);
             deviceNameView.setVisibility(View.GONE);
         } else {
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putString("particleSuccessId", getIntent().getStringExtra(EXTRA_DEVICE_ID));
+            edit.apply();
             showDeviceName(particleCloud);
         }
 
