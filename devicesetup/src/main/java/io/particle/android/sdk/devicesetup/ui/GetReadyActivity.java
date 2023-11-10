@@ -144,12 +144,8 @@ public class GetReadyActivity extends BaseActivity implements PermissionsFragmen
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("particleDeviceSetupFinished", ""); // getting String
             editor.commit();
-            finish();
-        } else {
-            Log.d("Marko-Device-Setup", "GetReadyActivity not finished");
-
-        }
-
+        } 
+        finish();
     }
 
     private void onReadyButtonClicked(View v) {

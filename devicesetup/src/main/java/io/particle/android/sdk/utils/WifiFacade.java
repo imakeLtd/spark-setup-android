@@ -8,6 +8,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Build.VERSION_CODES;
 
 import java.util.Arrays;
@@ -123,6 +124,11 @@ public class WifiFacade {
                     if (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_WIFI_P2P)) {
                         return false;
                     }
+                     if (Build.VERSION.SDK_INT >= 31) { // Build.VERSION_CODES.S
+                         if (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+                             return false;
+                         }
+                     }
                     return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI);
                 }
         );

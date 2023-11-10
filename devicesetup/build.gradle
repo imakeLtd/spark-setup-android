@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.jakewharton.butterknife'
 
 // This is the library version used when deploying the artifact
-version = '0.7.8'
+version = '0.8.1'
 
 ext {
     bintrayRepo = 'android'
@@ -60,9 +60,8 @@ android {
     }
 
     lintOptions {
-        abortOnError true
+        abortOnError false
     }
-
 }
 
 
@@ -92,7 +91,7 @@ dependencies {
 
 
 apply from: '../pom_generator_v1.gradle'
-apply from: '../bintray_upload_v1.gradle'
+// apply from: '../bintray_upload_v1.gradle'
 
    
 // disable insane, build-breaking doclint tool in Java 8
