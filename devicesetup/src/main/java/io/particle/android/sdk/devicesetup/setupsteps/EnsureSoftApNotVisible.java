@@ -48,7 +48,7 @@ public class EnsureSoftApNotVisible extends SetupStep {
     // it fails to disappear, since we don't have a good idea of why it's failing, so just throw
     // SetupStepException.  (But see onStepPreviouslyFulfilled())
     private void onStepNeverYetFulfilled() throws SetupStepException {
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 20; i++) {
             if (!isSoftApVisible()) {
                 // it's gone!
                 wasFulfilledOnce = true;
@@ -59,7 +59,7 @@ public class EnsureSoftApNotVisible extends SetupStep {
                 wifiFacade.startScan();
             }
 
-            EZ.threadSleep(250);
+            EZ.threadSleep(1000);
         }
         throw new SetupStepException("Wi-Fi credentials appear to be incorrect or an error has occurred");
     }

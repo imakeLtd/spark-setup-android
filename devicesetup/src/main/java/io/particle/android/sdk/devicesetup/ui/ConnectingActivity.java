@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.particle.android.sdk.cloud.ParticleCloud;
-import io.particle.android.sdk.devicesetup.ApConnector;
+import io.particle.android.sdk.devicesetup.apconnector.ApConnector;
 import io.particle.android.sdk.devicesetup.ParticleDeviceSetupLibrary;
 import io.particle.android.sdk.devicesetup.R;
 import io.particle.android.sdk.devicesetup.R2;
@@ -35,7 +35,6 @@ import io.particle.android.sdk.devicesetup.setupsteps.WaitForCloudConnectivitySt
 import io.particle.android.sdk.devicesetup.setupsteps.WaitForDisconnectionFromDeviceStep;
 import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.ui.BaseActivity;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.SSID;
 import io.particle.android.sdk.utils.SoftAPConfigRemover;
 import io.particle.android.sdk.utils.TLog;
@@ -45,6 +44,7 @@ import io.particle.android.sdk.utils.ui.Ui;
 import static io.particle.android.sdk.utils.Py.list;
 
 import android.content.SharedPreferences;
+import android.view.WindowManager;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -99,11 +99,12 @@ public class ConnectingActivity extends RequiresWifiScansActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_connecting);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ParticleDeviceSetupLibrary.getInstance().getApplicationComponent().activityComponentBuilder()
                 .apModule(new ApModule()).build().inject(this);
         ButterKnife.bind(this);
-        SEGAnalytics.screen("Device Setup: Connecting progress screen");
         publicKey = DeviceSetupState.publicKey;
         deviceSoftApSsid = getIntent().getParcelableExtra(EXTRA_SOFT_AP_SSID);
 
@@ -139,16 +140,16 @@ public class ConnectingActivity extends RequiresWifiScansActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (connectingProcessWorkerTask != null && !connectingProcessWorkerTask.isCancelled()) {
-            connectingProcessWorkerTask.cancel(true);
-            connectingProcessWorkerTask = null;
-        }
-        apConnector.stop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (!connectingProcessWorkerTask.isCancelled()) {
+            connectingProcessWorkerTask.cancel(true);
+            connectingProcessWorkerTask = null;
+        }
+        apConnector.stop();
         softAPConfigRemover.removeAllSoftApConfigs();
         softAPConfigRemover.reenableWifiNetworks();
     }

@@ -7,11 +7,12 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.squareup.phrase.Phrase;
@@ -31,7 +32,6 @@ import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.ui.BaseActivity;
 import io.particle.android.sdk.utils.Async;
 import io.particle.android.sdk.utils.Async.AsyncApiWorker;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.SoftAPConfigRemover;
 import io.particle.android.sdk.utils.TLog;
 import io.particle.android.sdk.utils.ui.ParticleUi;
@@ -60,66 +60,15 @@ public class GetReadyActivity extends BaseActivity implements PermissionsFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_ready);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ParticleDeviceSetupLibrary.getInstance().getApplicationComponent().activityComponentBuilder()
                 .apModule(new ApModule()).build().inject(this);
-        SEGAnalytics.screen("Device Setup: Get ready screen");
         softAPConfigRemover.removeAllSoftApConfigs();
         softAPConfigRemover.reenableWifiNetworks();
 
         PermissionsFragment.ensureAttached(this);
 
-
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", 0);
-        String customiserStr = prefs.getString("particleCustomiser", ""); // getting String
-        JsonObject customiserObject = customiserStr.length() != 0 ? new JsonParser().parse(customiserStr).getAsJsonObject() : null;
-
-        String deviceName = customiserObject != null ? customiserObject.get("deviceName").getAsString() : null;
-
-        if (deviceName == null || deviceName.length() == 0) {
-            deviceName = getString(R.string.device_name);
-        }
-
-        Ui.setText(this, R.id.get_ready_text_title,
-                Phrase.from(this, R.string.get_ready_title_text)
-                        .put("device_name", deviceName)
-                        .format());
-
-
-        Ui.findView(this, R.id.action_im_ready).setOnClickListener(this::onReadyButtonClicked);
-        Ui.setTextFromHtml(this, R.id.action_troubleshooting, R.string.troubleshooting)
-                .setOnClickListener(v -> {
-                    Uri uri = Uri.parse(v.getContext().getString(R.string.troubleshooting_uri));
-                    startActivity(WebViewActivity.buildIntent(v.getContext(), uri));
-                });
-
-
-        String instr = customiserObject != null ? customiserObject.get("instructions").getAsString() : null;
-
-        if (instr == null || instr.length() == 0){
-
-            Ui.setText(this, R.id.get_ready_text,
-                    Phrase.from(this, R.string.get_ready_text)
-                            .put("device_name", deviceName)
-//                        .put("indicator_light_setup_color_name", getString(R.string.listen_mode_led_color_name))
-//                        .put("setup_button_identifier", getString(R.string.mode_button_name))
-                            .format());
-        } else {
-            Ui.setText(this, R.id.get_ready_text, instr);
-        }
-
-        Ui.findView(this, R.id.action_im_ready).setOnClickListener(this::onReadyButtonClicked);
-
-
-        ImageView imgView = Ui.findView(this, R.id.imageView);
-        String deviceImg = customiserObject != null ? customiserObject.get("productImg").getAsString() : null;
-//        Log.d("Marko-Device-Setup", "deviceImg: " + deviceImg);
-        if (deviceImg == null || deviceImg.length() == 0) {
-            imgView.setImageDrawable(getResources().getDrawable(R.drawable.device_image));
-        } else {
-            imgView.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(deviceImg, "drawable", getApplicationContext().getPackageName())));
-        }
-//        Log.d("Marko-Device-Setup", "end");
-
+        proceedWhenReady();
     }
 
     @Override
@@ -144,19 +93,15 @@ public class GetReadyActivity extends BaseActivity implements PermissionsFragmen
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("particleDeviceSetupFinished", ""); // getting String
             editor.commit();
-            finish();
-        } else {
-            Log.d("Marko-Device-Setup", "GetReadyActivity not finished");
-
         }
-
+        finish();
     }
 
-    private void onReadyButtonClicked(View v) {
+    private void proceedWhenReady() {
         if (claimCodeWorker != null && !claimCodeWorker.isCancelled()) {
             return;
         }
-        DeviceSetupState.reset();
+        DeviceSetupState.reset(this.getApplicationContext());
         if (BaseActivity.setupOnly) {
             moveToDeviceDiscovery();
             return;
@@ -172,7 +117,7 @@ public class GetReadyActivity extends BaseActivity implements PermissionsFragmen
             @Override
             public void onTaskFinished() {
                 claimCodeWorker = null;
-                showProgress(false);
+               showProgress(false);
             }
 
             @Override
@@ -185,6 +130,10 @@ public class GetReadyActivity extends BaseActivity implements PermissionsFragmen
                 onGenerateClaimCodeFail(error);
             }
         });
+    }
+
+    private void onReadyButtonClicked(View v) {
+        proceedWhenReady();
     }
 
     private void onGenerateClaimCodeFail(@NonNull ParticleCloudException error) {
@@ -268,14 +217,14 @@ public class GetReadyActivity extends BaseActivity implements PermissionsFragmen
     }
 
     private void showProgress(boolean show) {
-        ParticleUi.showParticleButtonProgress(this, R.id.action_im_ready, show);
+        ParticleUi.showParticleButtonProgress(this, R.id.button_progress_indicator, show);
     }
 
     private void moveToDeviceDiscovery() {
-        if (PermissionsFragment.hasPermission(this, permission.ACCESS_COARSE_LOCATION)) {
+        if (PermissionsFragment.hasPermission(this, permission.ACCESS_FINE_LOCATION)) {
             startActivity(new Intent(GetReadyActivity.this, DiscoverDeviceActivity.class));
         } else {
-            PermissionsFragment.get(this).ensurePermission(permission.ACCESS_COARSE_LOCATION);
+            PermissionsFragment.get(this).ensurePermission(permission.ACCESS_FINE_LOCATION);
         }
     }
 

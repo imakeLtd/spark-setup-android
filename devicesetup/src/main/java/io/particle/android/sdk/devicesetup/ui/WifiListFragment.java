@@ -5,17 +5,18 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ListFragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.ListFragment;
+import 	androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,8 +25,8 @@ import java.util.Set;
 
 import io.particle.android.sdk.devicesetup.R;
 import io.particle.android.sdk.devicesetup.model.WifiNetwork;
-import io.particle.android.sdk.utils.EZ;
 import io.particle.android.sdk.utils.TLog;
+import io.particle.android.sdk.utils.ui.Fragments;
 import io.particle.android.sdk.utils.ui.Ui;
 
 import static io.particle.android.sdk.utils.Py.set;
@@ -70,10 +71,11 @@ public class WifiListFragment<T extends WifiNetwork> extends ListFragment
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        client = EZ.getCallbacksOrThrow(this, Client.class);
+        client = Fragments.getCallbacksOrThrow(this, Client.class);
         if (aggroLoadingHandler == null) {
             aggroLoadingHandler = new Handler();
         }
@@ -92,6 +94,8 @@ public class WifiListFragment<T extends WifiNetwork> extends ListFragment
         super.onActivityCreated(savedInstanceState);
         getListView().setVerticalScrollBarEnabled(true);
         getListView().setScrollbarFadingEnabled(false);
+        TextView emptyTextView = (TextView) getListView().getEmptyView();
+        emptyTextView.setTextColor(getResources().getColor(R.color.body_text_color));
     }
 
     @Override

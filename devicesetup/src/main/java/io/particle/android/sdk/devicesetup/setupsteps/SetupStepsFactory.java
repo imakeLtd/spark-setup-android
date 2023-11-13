@@ -1,7 +1,7 @@
 package io.particle.android.sdk.devicesetup.setupsteps;
 
 import android.content.Context;
-import android.support.annotation.RestrictTo;
+import androidx.annotation.RestrictTo;
 
 import java.security.PublicKey;
 
@@ -18,7 +18,7 @@ public class SetupStepsFactory {
     private static final int
             MAX_RETRIES_CONFIGURE_AP = 5,
             MAX_RETRIES_CONNECT_AP = 5,
-            MAX_RETRIES_DISCONNECT_FROM_DEVICE = 5,
+            MAX_RETRIES_DISCONNECT_FROM_DEVICE = 10,
             MAX_RETRIES_CLAIM = 5;
 
     @RestrictTo(RestrictTo.Scope.LIBRARY)

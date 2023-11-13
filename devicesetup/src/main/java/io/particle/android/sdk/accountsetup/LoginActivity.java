@@ -2,7 +2,6 @@ package io.particle.android.sdk.accountsetup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -12,6 +11,7 @@ import com.squareup.phrase.Phrase;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,7 +28,6 @@ import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.ui.BaseActivity;
 import io.particle.android.sdk.ui.NextActivitySelector;
 import io.particle.android.sdk.utils.Async;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.TLog;
 import io.particle.android.sdk.utils.ui.ParticleUi;
 import io.particle.android.sdk.utils.ui.Ui;
@@ -85,7 +84,6 @@ public class LoginActivity extends BaseActivity {
 
         ButterKnife.bind(this);
         ParticleUi.enableBrandLogoInverseVisibilityAgainstSoftKeyboard(this);
-        SEGAnalytics.screen("Auth: Login Screen");
 
         Ui.setText(this, R.id.log_in_header_text,
                 Phrase.from(this, R.string.log_in_header_text)
@@ -181,8 +179,6 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onSuccess(@NonNull Void result) {
-                SEGAnalytics.identify(email);
-                SEGAnalytics.track("Auth: Login success");
                 log.d("Logged in...");
                 if (isFinishing()) {
                     return;
@@ -206,7 +202,6 @@ public class LoginActivity extends BaseActivity {
                     startActivity(intent);
                 } else {
                     log.d("onFailed(): " + error.getMessage());
-                    SEGAnalytics.track("Auth: Login failure");
                     // FIXME: check specifically for 401 errors
                     // and set a better error message?  (Seems like
                     // this works fine already...)

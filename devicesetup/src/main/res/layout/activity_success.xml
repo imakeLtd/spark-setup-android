@@ -43,6 +43,7 @@
             android:layout_marginRight="24dp"
             android:layout_marginTop="6dp"
             android:gravity="center"
+            android:textColor="@color/body_text_color"
             android:text="@string/setup_success_details"/>
 
         <TextView
@@ -51,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="@string/device_naming_label"
+            android:textColor="@color/body_text_color"
             android:visibility="gone"/>
 
         <EditText

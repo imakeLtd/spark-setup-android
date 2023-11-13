@@ -19,6 +19,7 @@
         android:paddingStart="8dp"
         android:text="[SSID will go here]"
         android:textSize="@dimen/text_size_medium"
+        android:textColor="@color/body_text_color"
         tools:ignore="HardcodedText"/>
 
     <ImageView

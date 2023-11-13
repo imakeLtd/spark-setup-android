@@ -2,8 +2,8 @@ package io.particle.android.sdk.accountsetup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Patterns;
@@ -13,7 +13,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Switch;
 
-import com.segment.analytics.Properties;
 import com.squareup.phrase.Phrase;
 
 import butterknife.BindView;
@@ -31,7 +30,6 @@ import io.particle.android.sdk.devicesetup.R2;
 import io.particle.android.sdk.ui.BaseActivity;
 import io.particle.android.sdk.ui.NextActivitySelector;
 import io.particle.android.sdk.utils.Async;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.TLog;
 import io.particle.android.sdk.utils.ui.ParticleUi;
 import io.particle.android.sdk.utils.ui.Toaster;
@@ -90,7 +88,6 @@ public class CreateAccountActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
         ButterKnife.bind(this);
-        SEGAnalytics.screen("Auth: Sign Up screen");
         ParticleUi.enableBrandLogoInverseVisibilityAgainstSoftKeyboard(this);
 
         Ui.setText(this, R.id.create_account_header_text,
@@ -246,12 +243,6 @@ public class CreateAccountActivity extends BaseActivity {
     }
 
     private void singUpTaskSuccess(String email, String password, AccountInfo accountInfo, ParticleCloud cloud) {
-        SEGAnalytics.track("android account creation", new Properties()
-                .putValue("email", email)
-                .putValue("firstname", accountInfo.getFirstName())
-                .putValue("lastname", accountInfo.getLastName())
-                .putValue("isbusiness", accountInfo.isBusinessAccount())
-                .putValue("company", accountInfo.getCompanyName()));
         log.d("onAccountCreated()!");
         if (isFinishing()) {
             return;
@@ -259,9 +250,7 @@ public class CreateAccountActivity extends BaseActivity {
         if (useOrganizationSignup || useProductionSignup) {
             // with org setup, we're already logged in upon successful account creation
             onLoginSuccess(cloud);
-            SEGAnalytics.track("Auth: Signed Up New Customer");
         } else {
-            SEGAnalytics.track("Auth: Signed Up New User");
             attemptLogin(email, password);
         }
     }

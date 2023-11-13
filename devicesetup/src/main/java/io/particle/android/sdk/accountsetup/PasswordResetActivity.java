@@ -3,9 +3,9 @@ package io.particle.android.sdk.accountsetup;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import android.view.View;
 import android.widget.EditText;
 
@@ -21,7 +21,6 @@ import io.particle.android.sdk.devicesetup.R2;
 import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.ui.BaseActivity;
 import io.particle.android.sdk.utils.Async;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.TLog;
 import io.particle.android.sdk.utils.ui.ParticleUi;
 import io.particle.android.sdk.utils.ui.Ui;
@@ -54,7 +53,6 @@ public class PasswordResetActivity extends BaseActivity {
                 .apModule(new ApModule()).build().inject(this);
         ButterKnife.bind(this);
 
-        SEGAnalytics.screen("Auth: Forgot password screen");
         ParticleUi.enableBrandLogoInverseVisibilityAgainstSoftKeyboard(this);
 
         Ui.findView(this, R.id.action_cancel).setOnClickListener(view -> finish());
@@ -62,7 +60,6 @@ public class PasswordResetActivity extends BaseActivity {
     }
 
     public void onPasswordResetClicked(View v) {
-        SEGAnalytics.track("Auth: Request password reset");
         final String email = emailView.getText().toString();
         if (isEmailValid(email)) {
             performReset();

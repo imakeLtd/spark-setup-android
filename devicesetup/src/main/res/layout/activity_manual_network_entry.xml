@@ -40,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
+            android:textColor="@color/body_text_color"
             android:checked="true"
             android:text="@string/network_requires_password"/>
 

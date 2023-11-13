@@ -6,11 +6,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import io.particle.android.sdk.utils.EZ;
+import io.particle.android.sdk.utils.SoftAPConfigRemover;
+import io.particle.android.sdk.utils.WifiFacade;
 
 
 public class WaitForCloudConnectivityStep extends SetupStep {
 
-    private static final int MAX_RETRIES_REACHABILITY = 1;
+    private static final int MAX_RETRIES_REACHABILITY = 10;
 
     private final Context ctx;
 
@@ -23,6 +25,7 @@ public class WaitForCloudConnectivityStep extends SetupStep {
     protected void onRunStep() throws SetupStepException {
         // Wait for just a couple seconds for a WifiFacade connection if possible, in case we
         // flip from the soft AP, to mobile data, and then to WifiFacade in rapid succession.
+        reenableWifiNetworks();
         EZ.threadSleep(2000);
         int reachabilityRetries = 0;
         boolean isAPIHostReachable = checkIsApiHostAvailable();
@@ -60,13 +63,21 @@ public class WaitForCloudConnectivityStep extends SetupStep {
 //            log.e("error checking availability: ", e);
 //            // FIXME:
 //            return false;
-//            // At this stage we're technically OK with other types of errors
+//            // At this stage we're technically READY_TO_ACTIVATE with other types of errors
 //            if (set(Kind.NETWORK, Kind.UNEXPECTED).contains(e.getKind())) {
 //                return false;
 //            }
 //        }
 
         return true;
+    }
+
+    private void reenableWifiNetworks() {
+        SoftAPConfigRemover softAPConfigRemover = new SoftAPConfigRemover(
+                ctx,
+                WifiFacade.get(ctx)
+        );
+        softAPConfigRemover.reenableWifiNetworks();
     }
 
 }

@@ -1,7 +1,7 @@
 <resources>
 
     <style name="SparkButton" parent="Widget.AppCompat.Button">
-        <item name="fontPath">@string/bold_text_font_name</item>
+        <item name="android:fontFamily">@font/twkeverett_bold</item>
         <item name="android:textColor">@drawable/button_text_color_selector</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:layout_height">60dp</item>
@@ -17,13 +17,27 @@
     </style>
 
     <style name="SectionHeader">
-        <item name="fontPath">@string/header_text_font_name</item>
+        <item name="android:fontFamily">@font/twkeverett_bold</item>
         <item name="android:textSize">@dimen/material_text_size_headline</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/normal_text_color</item>
     </style>
+
+    <style name="SectionSubHeader">
+        <item name="android:fontFamily">@font/twkeverett_bold</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/gf_gray_text_color</item>
+    </style>
+
+    <style name="BodyText">
+        <item name="android:textColor">@color/normal_text_color</item>
+    </style>
+
 
     <style name="LinkText" parent="android:Widget.Holo.TextView">
         <item name="android:padding">4dp</item>
@@ -55,6 +69,17 @@
         <item name="android:indeterminateDrawable">@drawable/progress_spinner</item>
         <item name="android:indeterminateDuration">500</item>
         <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+
+    <style name="SparkSpinnerDark" parent="android:Widget.Holo.ProgressBar.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_spinner_dark</item>
+        <item name="android:indeterminateDuration">500</item>
         <item name="android:visibility">invisible</item>
     </style>
 

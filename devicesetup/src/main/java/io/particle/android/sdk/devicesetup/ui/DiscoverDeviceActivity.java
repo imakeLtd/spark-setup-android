@@ -11,9 +11,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
 import android.view.View;
 
 import com.squareup.phrase.Phrase;
@@ -22,11 +19,14 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import androidx.loader.content.Loader;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.particle.android.sdk.accountsetup.LoginActivity;
 import io.particle.android.sdk.cloud.ParticleCloud;
-import io.particle.android.sdk.devicesetup.ApConnector;
+import io.particle.android.sdk.devicesetup.apconnector.ApConnector;
 import io.particle.android.sdk.devicesetup.ParticleDeviceSetupLibrary;
 import io.particle.android.sdk.devicesetup.R;
 import io.particle.android.sdk.devicesetup.R2;
@@ -37,7 +37,6 @@ import io.particle.android.sdk.devicesetup.setupsteps.SetupStepException;
 import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.ui.BaseActivity;
 import io.particle.android.sdk.utils.EZ;
-import io.particle.android.sdk.utils.SEGAnalytics;
 import io.particle.android.sdk.utils.SSID;
 import io.particle.android.sdk.utils.SoftAPConfigRemover;
 import io.particle.android.sdk.utils.TLog;
@@ -48,6 +47,7 @@ import io.particle.android.sdk.utils.ui.WebViewActivity;
 import static io.particle.android.sdk.utils.Py.truthy;
 
 import android.content.SharedPreferences;
+import android.view.WindowManager;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -109,8 +109,8 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
                 .apModule(new ApModule()).build().inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover_device);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ButterKnife.bind(this);
-        SEGAnalytics.screen("Device Setup: Device discovery screen");
 
         softAPConfigRemover.removeAllSoftApConfigs();
         softAPConfigRemover.reenableWifiNetworks();
@@ -133,7 +133,7 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
 
         Ui.setText(this, R.id.wifi_list_header,
                 Phrase.from(this, R.string.wifi_list_header_text)
-                        .put("device_name", dName)
+                        .put("device_name", dName.toUpperCase())
                         .format()
         );
 
@@ -262,8 +262,17 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
 
     @Override
     public String getListEmptyText() {
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", 0);
+        String customiserStr = prefs.getString("particleCustomiser", ""); // getting String
+        JsonObject customiserObject = customiserStr.length() != 0 ? new JsonParser().parse(customiserStr).getAsJsonObject() : null;
+
+        dName = customiserObject != null ? customiserObject.get("deviceName").getAsString() : null;
+        if (dName == null || dName.length() == 0) {
+            dName = getString(R.string.device_name);
+        }
         return Phrase.from(this, R.string.empty_soft_ap_list_text)
-                .put("device_name", dName)
+                .put("device_name", dName.toUpperCase())
                 .format().toString();
     }
 

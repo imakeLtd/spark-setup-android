@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.util.Pair;
+import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.core.util.Pair;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.segment.analytics.Properties;
 import com.squareup.phrase.Phrase;
 
 import java.io.IOException;
@@ -38,7 +37,8 @@ import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.ui.BaseActivity;
 import io.particle.android.sdk.ui.NextActivitySelector;
 import io.particle.android.sdk.utils.Async;
-import io.particle.android.sdk.utils.SEGAnalytics;
+import io.particle.android.sdk.utils.SoftAPConfigRemover;
+import io.particle.android.sdk.utils.WifiFacade;
 import io.particle.android.sdk.utils.ui.ParticleUi;
 import io.particle.android.sdk.utils.ui.Ui;
 import io.particle.android.sdk.utils.ui.WebViewActivity;
@@ -118,7 +118,7 @@ public class SuccessActivity extends BaseActivity {
                 finishSetup(v.getContext(), deviceNameView.getText().toString(), true);
             }
         } else {
-            leaveActivity(v.getContext(), false);
+            leaveActivity(v.getContext(), isSuccess);
         }
     }
 
@@ -135,12 +135,11 @@ public class SuccessActivity extends BaseActivity {
         ParticleDeviceSetupLibrary.getInstance().getApplicationComponent().activityComponentBuilder()
                 .apModule(new ApModule()).build().inject(this);
         ButterKnife.bind(this);
-        SEGAnalytics.screen("Device Setup: Setup Result Screen");
 
         int resultCode = getIntent().getIntExtra(EXTRA_RESULT_CODE, -1);
         isSuccess = list(RESULT_SUCCESS, RESULT_SUCCESS_UNKNOWN_OWNERSHIP).contains(resultCode);
 
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", 0);
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs.db", MODE_PRIVATE);
         String customiserStr = prefs.getString("particleCustomiser", ""); // getting String
         JsonObject customiserObject = customiserStr.length() != 0 ? new JsonParser().parse(customiserStr).getAsJsonObject() : null;
 
@@ -150,34 +149,26 @@ public class SuccessActivity extends BaseActivity {
         }
         defaultDeviceName = customiserObject != null ? customiserObject.get("deviceDefaultName").getAsString() : defaultDeviceName;
         skipRename = customiserObject != null ? customiserObject.get("skipRename").getAsBoolean() : skipRename;
-        Log.d("Marko-Device-Setup", "Got appdefaults defaultDeviceName:" + defaultDeviceName);
-        Log.d("Marko-Device-Setup", "Got  appdefaults skipRename:" + skipRename);
+        Log.d("Device-Setup", "Got appdefaults defaultDeviceName:" + defaultDeviceName);
+        Log.d("Device-Setup", "Got  appdefaults skipRename:" + skipRename);
+        Log.d("Device-Setup", "EXTRA_DEVICE_ID:" + getIntent().getStringExtra(EXTRA_DEVICE_ID));
+        Log.d("Device-Setup", "isSuccess:" + isSuccess);
+
+        SoftAPConfigRemover softAPConfigRemover = new SoftAPConfigRemover(
+                this.getApplicationContext(),
+                WifiFacade.get(this.getApplicationContext())
+        );
+        softAPConfigRemover.removeAllSoftApConfigs();
 
         if (!isSuccess) {
             ImageView image = Ui.findView(this, R.id.result_image);
             image.setImageResource(R.drawable.fail);
             deviceNameView.setVisibility(View.GONE);
-            Properties analyticProperties = new Properties();
-
-            switch (resultCode) {
-                case RESULT_FAILURE_CLAIMING:
-                    analyticProperties.putValue("reason", "claiming failed");
-                    break;
-                case RESULT_FAILURE_CONFIGURE:
-                    analyticProperties.putValue("reason", "cannot configure");
-                    break;
-                case RESULT_FAILURE_NO_DISCONNECT:
-                    analyticProperties.putValue("reason", "cannot disconnect");
-                    break;
-                case RESULT_FAILURE_LOST_CONNECTION_TO_DEVICE:
-                    analyticProperties.putValue("reason", "lost connection");
-                    break;
-            }
-            SEGAnalytics.track("Device Setup: Failure", analyticProperties);
         } else {
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putString("particleSuccessId", getIntent().getStringExtra(EXTRA_DEVICE_ID));
+            edit.apply();
             showDeviceName(particleCloud);
-            SEGAnalytics.track("Device Setup: Success", RESULT_SUCCESS_UNKNOWN_OWNERSHIP == resultCode ?
-                    new Properties().putValue("reason", "not claimed") : null);
         }
 
         Pair<? extends CharSequence, CharSequence> resultStrings = buildUiStringPair(resultCode);
