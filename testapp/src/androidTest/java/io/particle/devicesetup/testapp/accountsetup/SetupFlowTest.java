@@ -29,7 +29,6 @@ import io.particle.android.sdk.devicesetup.commands.CommandClientFactory;
 import io.particle.android.sdk.devicesetup.commands.ConfigureApCommand;
 import io.particle.android.sdk.devicesetup.commands.ConnectAPCommand;
 import io.particle.android.sdk.devicesetup.commands.ScanApCommand;
-import io.particle.android.sdk.devicesetup.setupsteps.CheckIfDeviceClaimedStep;
 import io.particle.android.sdk.devicesetup.setupsteps.ConfigureAPStep;
 import io.particle.android.sdk.devicesetup.setupsteps.ConnectDeviceToNetworkStep;
 import io.particle.android.sdk.devicesetup.setupsteps.EnsureSoftApNotVisible;
@@ -170,7 +169,7 @@ public class SetupFlowTest {
     private void mockSetupSteps() {
         ConfigureAPStep configureAPStep = mock(ConfigureAPStep.class);
         ConnectDeviceToNetworkStep connectDeviceToNetworkStep = mock(ConnectDeviceToNetworkStep.class);
-        CheckIfDeviceClaimedStep checkIfDeviceClaimedStep = mock(CheckIfDeviceClaimedStep.class);
+//        CheckIfDeviceClaimedStep checkIfDeviceClaimedStep = mock(CheckIfDeviceClaimedStep.class);
         EnsureSoftApNotVisible ensureSoftApNotVisible = mock(EnsureSoftApNotVisible.class);
         WaitForCloudConnectivityStep waitForCloudConnectivityStep = mock(WaitForCloudConnectivityStep.class);
         WaitForDisconnectionFromDeviceStep waitForDisconnectionFromDeviceStep = mock(WaitForDisconnectionFromDeviceStep.class);

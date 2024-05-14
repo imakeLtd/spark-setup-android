@@ -12,7 +12,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 
-import io.particle.android.sdk.cloud.ParticleCloudSDK;
+//import io.particle.android.sdk.cloud.ParticleCloudSDK;
 import io.particle.android.sdk.devicesetup.ui.DeviceSetupState;
 import io.particle.android.sdk.devicesetup.ui.GetReadyActivity;
 import io.particle.android.sdk.di.ApplicationComponent;
@@ -181,7 +181,7 @@ public class ParticleDeviceSetupLibrary {
         BaseActivity.setupOnly = setupOnly;
         if (instance == null) {
             // ensure the cloud SDK is initialized
-            ParticleCloudSDK.init(ctx);
+//            ParticleCloudSDK.init(ctx);
             instance = new ParticleDeviceSetupLibrary();
             instance.setComponent(DaggerApplicationComponent
                     .builder()

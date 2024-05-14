@@ -24,8 +24,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.particle.android.sdk.accountsetup.LoginActivity;
-import io.particle.android.sdk.cloud.ParticleCloud;
+//import io.particle.android.sdk.accountsetup.LoginActivity;
+//import io.particle.android.sdk.cloud.ParticleCloud;
 import io.particle.android.sdk.devicesetup.apconnector.ApConnector;
 import io.particle.android.sdk.devicesetup.ParticleDeviceSetupLibrary;
 import io.particle.android.sdk.devicesetup.R;
@@ -67,7 +67,7 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
 
 
     @Inject protected WifiFacade wifiFacade;
-    @Inject protected ParticleCloud sparkCloud;
+//    @Inject protected ParticleCloud sparkCloud;
     @Inject protected DiscoverProcessWorker discoverProcessWorker;
     @Inject protected SoftAPConfigRemover softAPConfigRemover;
     @Inject protected CommandClientFactory commandClientFactory;
@@ -148,15 +148,15 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
 
         Ui.setTextFromHtml(this, R.id.action_troubleshooting, R.string.troubleshooting);
 
-        if (!truthy(sparkCloud.getLoggedInUsername())) {
-            Ui.findView(this, R.id.logged_in_as).setVisibility(View.GONE);
-        } else {
-            Ui.setText(this, R.id.logged_in_as,
-                    Phrase.from(this, R.string.you_are_logged_in_as)
-                            .put("username", sparkCloud.getLoggedInUsername())
-                            .format()
-            );
-        }
+//        if (!truthy(sparkCloud.getLoggedInUsername())) {
+//            Ui.findView(this, R.id.logged_in_as).setVisibility(View.GONE);
+//        } else {
+//            Ui.setText(this, R.id.logged_in_as,
+//                    Phrase.from(this, R.string.you_are_logged_in_as)
+//                            .put("username", sparkCloud.getLoggedInUsername())
+//                            .format()
+//            );
+//        }
 
 //        Ui.findView(this, R.id.action_log_out).setVisibility(BaseActivity.setupOnly ? View.GONE : View.VISIBLE);
     }
@@ -363,15 +363,16 @@ public class DiscoverDeviceActivity extends RequiresWifiScansActivity
             @Override
             protected void onPostExecute(SetupStepException error) {
                 connectToApTask = null;
-                if (error == null || (BaseActivity.setupOnly && error instanceof DeviceAlreadyClaimed)) {
+                if (error == null) {
+//              if (error == null || (BaseActivity.setupOnly && error instanceof DeviceAlreadyClaimed)) {
                     // no exceptions thrown, huzzah
                     hideProgressDialog();
                     startActivity(SelectNetworkActivity.buildIntent(
                             DiscoverDeviceActivity.this, selectedSoftApSSID));
                     finish();
-                } else if (error instanceof DeviceAlreadyClaimed) {
-                    hideProgressDialog();
-                    onDeviceClaimedByOtherUser();
+//                } else if (error instanceof DeviceAlreadyClaimed) {
+//                    hideProgressDialog();
+//                    onDeviceClaimedByOtherUser();
                 } else {
                     // nope, do it all over again.
                     // FIXME: this might be a good time to display some feedback...

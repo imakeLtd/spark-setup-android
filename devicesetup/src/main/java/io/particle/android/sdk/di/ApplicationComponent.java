@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import io.particle.android.sdk.cloud.ParticleCloud;
+//import io.particle.android.sdk.cloud.ParticleCloud;
 
 @Singleton
 @Component(modules = {ApplicationModule.class, CloudModule.class})
@@ -21,7 +21,7 @@ public interface ApplicationComponent {
 
     Context getContext();
 
-    ParticleCloud getParticleCloud();
+//    ParticleCloud getParticleCloud();
 
     Gson getGson();
 }

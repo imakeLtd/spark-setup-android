@@ -47,7 +47,7 @@ public class DiscoverProcessWorker {
                         new DeviceIdCommand(), DeviceIdCommand.Response.class);
                 detectedDeviceID = response.deviceIdHex.toLowerCase(Locale.ROOT);
                 DeviceSetupState.deviceToBeSetUpId = detectedDeviceID;
-                isDetectedDeviceClaimed = truthy(response.isClaimed);
+//                isDetectedDeviceClaimed = truthy(response.isClaimed);
             } catch (IOException e) {
                 throw new SetupStepException("Process died while trying to get the device ID", e);
             }
@@ -74,48 +74,48 @@ public class DiscoverProcessWorker {
         //      user about taking ownership because device already belongs to this user
         // (3) device claimed `c=1` and NOT in the list from the API => mobile app asks whether
         //      use would like to take ownership
-        if (BaseActivity.setupOnly) {
+//        if (BaseActivity.setupOnly) {
             // Claiming should never happen in "setup only" mode, so exit early
             return;
-        }
-
-        if (!gotOwnershipInfo) {
-            needToClaimDevice = false;
-
-            // device was never claimed before - so we need to claim it anyways
-            if (!isDetectedDeviceClaimed) {
-                setClaimCode();
-                needToClaimDevice = true;
-
-            } else {
-                boolean deviceClaimedByUser = false;
-                for (String deviceId : DeviceSetupState.claimedDeviceIds) {
-                    if (deviceId.equalsIgnoreCase(detectedDeviceID)) {
-                        deviceClaimedByUser = true;
-                        break;
-                    }
-                }
-                gotOwnershipInfo = true;
-
-                if (isDetectedDeviceClaimed && !deviceClaimedByUser) {
-                    // This device is already claimed by someone else. Ask the user if we should
-                    // change ownership to the current logged in user, and if so, set the claim code.
-
-                    throw new DiscoverDeviceActivity.DeviceAlreadyClaimed("Device already claimed by another user");
-
-                } else {
-                    // Success: no exception thrown, this part of the process is complete.
-                    // Let the caller continue on with the setup process.
-                }
-            }
-
-        } else {
-            if (needToClaimDevice) {
-                setClaimCode();
-            }
-            // Success: no exception thrown, the part of the process is complete.  Let the caller
-            // continue on with the setup process.
-        }
+//        }
+//
+//        if (!gotOwnershipInfo) {
+//            needToClaimDevice = false;
+//
+//            // device was never claimed before - so we need to claim it anyways
+//            if (!isDetectedDeviceClaimed) {
+//                setClaimCode();
+//                needToClaimDevice = true;
+//
+//            } else {
+//                boolean deviceClaimedByUser = false;
+//                for (String deviceId : DeviceSetupState.claimedDeviceIds) {
+//                    if (deviceId.equalsIgnoreCase(detectedDeviceID)) {
+//                        deviceClaimedByUser = true;
+//                        break;
+//                    }
+//                }
+//                gotOwnershipInfo = true;
+//
+//                if (isDetectedDeviceClaimed && !deviceClaimedByUser) {
+//                    // This device is already claimed by someone else. Ask the user if we should
+//                    // change ownership to the current logged in user, and if so, set the claim code.
+//
+//                    throw new DiscoverDeviceActivity.DeviceAlreadyClaimed("Device already claimed by another user");
+//
+//                } else {
+//                    // Success: no exception thrown, this part of the process is complete.
+//                    // Let the caller continue on with the setup process.
+//                }
+//            }
+//
+//        } else {
+//            if (needToClaimDevice) {
+//                setClaimCode();
+//            }
+//            // Success: no exception thrown, the part of the process is complete.  Let the caller
+//            // continue on with the setup process.
+//        }
     }
 
     private void setClaimCode() throws SetupStepException {

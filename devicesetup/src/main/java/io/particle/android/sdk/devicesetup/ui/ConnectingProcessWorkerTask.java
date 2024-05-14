@@ -12,8 +12,8 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import io.particle.android.sdk.cloud.ParticleCloud;
-import io.particle.android.sdk.cloud.ParticleDevice;
+//import io.particle.android.sdk.cloud.ParticleCloud;
+//import io.particle.android.sdk.cloud.ParticleDevice;
 import io.particle.android.sdk.devicesetup.ParticleDeviceSetupLibrary;
 import io.particle.android.sdk.devicesetup.R;
 import io.particle.android.sdk.devicesetup.SetupProcessException;
@@ -38,7 +38,7 @@ import static io.particle.android.sdk.utils.Py.truthy;
 public class ConnectingProcessWorkerTask extends SetupStepsRunnerTask {
     private static final TLog log = TLog.get(ConnectingProcessWorkerTask.class);
 
-    @Inject protected ParticleCloud sparkCloud;
+//    @Inject protected ParticleCloud sparkCloud;
 
     private WeakReference<Activity> activityReference;
     private String deviceId;
@@ -83,27 +83,27 @@ public class ConnectingProcessWorkerTask extends SetupStepsRunnerTask {
             // FIXME: handle "success, no ownership" case
             resultCode = SuccessActivity.RESULT_SUCCESS;
 
-            if (!BaseActivity.setupOnly) {
-                EZ.runAsync(() -> {
-                    try {
-                        // collect a list of unique, non-null device names
-                        Set<String> names = set(Funcy.transformList(
-                                sparkCloud.getDevices(),
-                                Funcy.notNull(),
-                                ParticleDevice::getName,
-                                Py::truthy
-                        ));
-                        ParticleDevice device = sparkCloud.getDevice(deviceId);
-                        if (device != null && !truthy(device.getName())) {
-                            device.setName(CoreNameGenerator.generateUniqueName(names));
-                        }
-                    } catch (Exception e) {
-                        // FIXME: do real error handling here, and only
-                        // handle ParticleCloudException instead of swallowing everything
-                        e.printStackTrace();
-                    }
-                });
-            }
+//            if (!BaseActivity.setupOnly) {
+//                EZ.runAsync(() -> {
+//                    try {
+//                        // collect a list of unique, non-null device names
+//                        Set<String> names = set(Funcy.transformList(
+//                                sparkCloud.getDevices(),
+//                                Funcy.notNull(),
+//                                ParticleDevice::getName,
+//                                Py::truthy
+//                        ));
+//                        ParticleDevice device = sparkCloud.getDevice(deviceId);
+//                        if (device != null && !truthy(device.getName())) {
+//                            device.setName(CoreNameGenerator.generateUniqueName(names));
+//                        }
+//                    } catch (Exception e) {
+//                        // FIXME: do real error handling here, and only
+//                        // handle ParticleCloudException instead of swallowing everything
+//                        e.printStackTrace();
+//                    }
+//                });
+//            }
         }
 
         Activity activity = activityReference.get();

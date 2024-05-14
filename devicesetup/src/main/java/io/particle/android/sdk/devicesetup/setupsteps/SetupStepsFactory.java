@@ -5,7 +5,7 @@ import androidx.annotation.RestrictTo;
 
 import java.security.PublicKey;
 
-import io.particle.android.sdk.cloud.ParticleCloud;
+//import io.particle.android.sdk.cloud.ParticleCloud;
 import io.particle.android.sdk.devicesetup.R;
 import io.particle.android.sdk.devicesetup.commands.CommandClient;
 import io.particle.android.sdk.devicesetup.commands.ScanApCommand;
@@ -69,24 +69,4 @@ public class SetupStepsFactory {
                 deviceSoftApSsid, wifiFacade);
     }
 
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    public WaitForCloudConnectivityStep newWaitForCloudConnectivityStep(Context context) {
-        return new WaitForCloudConnectivityStep(
-                StepConfig.newBuilder()
-                        .setMaxAttempts(MAX_RETRIES_DISCONNECT_FROM_DEVICE)
-                        .setResultCode(SuccessActivity.RESULT_FAILURE_NO_DISCONNECT)
-                        .setStepId(R.id.check_for_internet_connectivity)
-                        .build(), context.getApplicationContext());
-    }
-
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    public CheckIfDeviceClaimedStep newCheckIfDeviceClaimedStep(ParticleCloud sparkCloud, String deviceId) {
-        return new CheckIfDeviceClaimedStep(
-                StepConfig.newBuilder()
-                        .setMaxAttempts(MAX_RETRIES_CLAIM)
-                        .setResultCode(SuccessActivity.RESULT_FAILURE_CLAIMING)
-                        .setStepId(R.id.verify_product_ownership)
-                        .build(),
-                sparkCloud, deviceId);
-    }
 }

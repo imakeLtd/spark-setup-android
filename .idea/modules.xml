@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Projects.spark-setup-android.iml" filepath="$PROJECT_DIR$/.idea/modules/Projects.spark-setup-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/spark-setup-android.iml" filepath="$PROJECT_DIR$/spark-setup-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.iml" filepath="$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/devicesetup/spark-setup-android.devicesetup.androidTest.iml" />

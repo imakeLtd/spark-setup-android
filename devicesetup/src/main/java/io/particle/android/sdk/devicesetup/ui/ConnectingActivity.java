@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.particle.android.sdk.cloud.ParticleCloud;
+// import io.particle.android.sdk.cloud.ParticleCloud;
 import io.particle.android.sdk.devicesetup.apconnector.ApConnector;
 import io.particle.android.sdk.devicesetup.ParticleDeviceSetupLibrary;
 import io.particle.android.sdk.devicesetup.R;
@@ -24,17 +24,13 @@ import io.particle.android.sdk.devicesetup.R2;
 import io.particle.android.sdk.devicesetup.commands.CommandClient;
 import io.particle.android.sdk.devicesetup.commands.CommandClientFactory;
 import io.particle.android.sdk.devicesetup.commands.ScanApCommand;
-import io.particle.android.sdk.devicesetup.setupsteps.CheckIfDeviceClaimedStep;
 import io.particle.android.sdk.devicesetup.setupsteps.ConfigureAPStep;
 import io.particle.android.sdk.devicesetup.setupsteps.ConnectDeviceToNetworkStep;
-import io.particle.android.sdk.devicesetup.setupsteps.EnsureSoftApNotVisible;
 import io.particle.android.sdk.devicesetup.setupsteps.SetupStep;
 import io.particle.android.sdk.devicesetup.setupsteps.SetupStepApReconnector;
 import io.particle.android.sdk.devicesetup.setupsteps.SetupStepsFactory;
-import io.particle.android.sdk.devicesetup.setupsteps.WaitForCloudConnectivityStep;
 import io.particle.android.sdk.devicesetup.setupsteps.WaitForDisconnectionFromDeviceStep;
 import io.particle.android.sdk.di.ApModule;
-import io.particle.android.sdk.ui.BaseActivity;
 import io.particle.android.sdk.utils.SSID;
 import io.particle.android.sdk.utils.SoftAPConfigRemover;
 import io.particle.android.sdk.utils.TLog;
@@ -46,7 +42,6 @@ import static io.particle.android.sdk.utils.Py.list;
 import android.content.SharedPreferences;
 import android.view.WindowManager;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -85,7 +80,7 @@ public class ConnectingActivity extends RequiresWifiScansActivity {
     private String networkSecretPlaintext;
     private PublicKey publicKey;
     private SSID deviceSoftApSsid;
-    @Inject protected ParticleCloud sparkCloud;
+//    @Inject protected ParticleCloud sparkCloud;
     @Inject protected Gson gson;
 
     @OnClick(R2.id.action_cancel)
@@ -169,24 +164,24 @@ public class ConnectingActivity extends RequiresWifiScansActivity {
         WaitForDisconnectionFromDeviceStep waitForDisconnectionFromDeviceStep = setupStepsFactory
                 .newWaitForDisconnectionFromDeviceStep(deviceSoftApSsid, wifiFacade);
 
-        EnsureSoftApNotVisible ensureSoftApNotVisible = setupStepsFactory
-                .newEnsureSoftApNotVisible(deviceSoftApSsid, wifiFacade);
+//        EnsureSoftApNotVisible ensureSoftApNotVisible = setupStepsFactory
+//                .newEnsureSoftApNotVisible(deviceSoftApSsid, wifiFacade);
 
-        WaitForCloudConnectivityStep waitForLocalCloudConnectivityStep = setupStepsFactory
-                .newWaitForCloudConnectivityStep(getApplicationContext());
+//        WaitForCloudConnectivityStep waitForLocalCloudConnectivityStep = setupStepsFactory
+//                .newWaitForCloudConnectivityStep(getApplicationContext());
 
-        CheckIfDeviceClaimedStep checkIfDeviceClaimedStep = setupStepsFactory
-                .newCheckIfDeviceClaimedStep(sparkCloud, DeviceSetupState.deviceToBeSetUpId);
+//        CheckIfDeviceClaimedStep checkIfDeviceClaimedStep = setupStepsFactory
+//                .newCheckIfDeviceClaimedStep(sparkCloud, DeviceSetupState.deviceToBeSetUpId);
 
         List<SetupStep> steps = list(
                 configureAPStep,
                 connectDeviceToNetworkStep,
-                waitForDisconnectionFromDeviceStep,
-                ensureSoftApNotVisible,
-                waitForLocalCloudConnectivityStep);
-        if (!BaseActivity.setupOnly) {
-            steps.add(checkIfDeviceClaimedStep);
-        }
+                waitForDisconnectionFromDeviceStep);
+//                ensureSoftApNotVisible);
+//                waitForLocalCloudConnectivityStep);
+//        if (!BaseActivity.setupOnly) {
+//            steps.add(checkIfDeviceClaimedStep);
+//        }
         return steps;
     }
 }

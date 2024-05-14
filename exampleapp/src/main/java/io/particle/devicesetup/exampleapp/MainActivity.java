@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import java.util.Date;
 
-import io.particle.android.sdk.cloud.ParticleCloudSDK;
+//import io.particle.android.sdk.cloud.ParticleCloudSDK;
 import io.particle.android.sdk.devicesetup.ParticleDeviceSetupLibrary;
 import io.particle.android.sdk.utils.ui.Ui;
 
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ParticleDeviceSetupLibrary.init(this.getApplicationContext());
 
-        ParticleCloudSDK.getCloud().setAccessToken("INSERT_ACCESS_TOKEN_HERE");
+//        ParticleCloudSDK.getCloud().setAccessToken("INSERT_ACCESS_TOKEN_HERE");
         Ui.findView(this, R.id.start_setup_button).setOnClickListener(view -> invokeDeviceSetup());
         Ui.findView(this, R.id.start_setup_custom_intent_button).setOnClickListener(v -> invokeDeviceSetupWithCustomIntentBuilder());
 

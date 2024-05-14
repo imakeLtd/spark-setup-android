@@ -24,9 +24,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.particle.android.sdk.cloud.ParticleCloud;
-import io.particle.android.sdk.cloud.exceptions.ParticleCloudException;
-import io.particle.android.sdk.cloud.ParticleDevice;
+//import io.particle.android.sdk.cloud.ParticleCloud;
+//import io.particle.android.sdk.cloud.exceptions.ParticleCloudException;
+//import io.particle.android.sdk.cloud.ParticleDevice;
 import io.particle.android.sdk.cloud.SDKGlobals;
 import io.particle.android.sdk.devicesetup.ParticleDeviceSetupLibrary;
 import io.particle.android.sdk.devicesetup.ParticleDeviceSetupLibrary.DeviceSetupCompleteContract;
@@ -105,7 +105,7 @@ public class SuccessActivity extends BaseActivity {
 
     @BindView(R2.id.device_name) protected EditText deviceNameView;
     @BindView(R2.id.device_name_label) protected TextView deviceNameLabelView;
-    @Inject protected ParticleCloud particleCloud;
+//    @Inject protected ParticleCloud particleCloud;
     boolean isSuccess = false;
 
     @OnClick(R2.id.action_done)
@@ -168,7 +168,7 @@ public class SuccessActivity extends BaseActivity {
             SharedPreferences.Editor edit = prefs.edit();
             edit.putString("particleSuccessId", getIntent().getStringExtra(EXTRA_DEVICE_ID));
             edit.apply();
-            showDeviceName(particleCloud);
+//            showDeviceName(particleCloud)ParticleCloud;
         }
 
         Pair<? extends CharSequence, CharSequence> resultStrings = buildUiStringPair(resultCode);
@@ -179,31 +179,13 @@ public class SuccessActivity extends BaseActivity {
 
     private void finishSetup(Context context, String deviceName, boolean isSuccess) {
         ParticleUi.showParticleButtonProgress(SuccessActivity.this, R.id.action_done, true);
-        Async.executeAsync(particleCloud, new Async.ApiWork<ParticleCloud, Void>() {
-            @Override
-            public Void callApi(@NonNull ParticleCloud cloud) throws ParticleCloudException, IOException {
-                ParticleDevice device = particleCloud.getDevice(getIntent().getStringExtra(EXTRA_DEVICE_ID));
-                setDeviceName(device, deviceName);
-                return null;
-            }
-
-            @Override
-            public void onSuccess(@NonNull Void result) {
-                leaveActivity(context, isSuccess);
-            }
-
-            @Override
-            public void onFailure(@NonNull ParticleCloudException e) {
-                ParticleUi.showParticleButtonProgress(SuccessActivity.this, R.id.action_done, false);
-                deviceNameView.setError(getString(R.string.device_naming_failure));
-            }
-        });
+        leaveActivity(context, isSuccess);
     }
 
     private void leaveActivity(Context context, boolean isSuccess) {
         Intent intent = NextActivitySelector.getNextActivityIntent(
                 context,
-                particleCloud,
+//                particleCloud,
                 SDKGlobals.getSensitiveDataStorage(),
                 new SetupResult(isSuccess, isSuccess ? DeviceSetupState.deviceToBeSetUpId : null));
 
@@ -229,36 +211,36 @@ public class SuccessActivity extends BaseActivity {
         finish();
     }
 
-    private void setDeviceName(ParticleDevice device, String deviceName) throws ParticleCloudException {
-        //Set new device name only if it changed
-        if (device.getName() != null && !device.getName().equals(deviceName)) {
-            device.setName(deviceName);
-        }
-    }
+//    private void setDeviceName(ParticleDevice device, String deviceName) throws ParticleCloudException {
+//        //Set new device name only if it changed
+//        if (device.getName() != null && !device.getName().equals(deviceName)) {
+//            device.setName(deviceName);
+//        }
+//    }
 
-    private void showDeviceName(ParticleCloud cloud) {
-        if (!this.skipRename) {
-            deviceNameLabelView.setVisibility(View.VISIBLE);
-            deviceNameView.setVisibility(View.VISIBLE);
-            Async.executeAsync(cloud, new Async.ApiWork<ParticleCloud, ParticleDevice>() {
-                @Override
-                public ParticleDevice callApi(@NonNull ParticleCloud cloud) throws ParticleCloudException, IOException {
-                    return particleCloud.getDevice(getIntent().getStringExtra(EXTRA_DEVICE_ID));
-                }
-
-                @Override
-                public void onSuccess(@NonNull ParticleDevice particleDevice) {
-                    deviceNameView.setText(particleDevice.getName());
-                }
-
-                @Override
-                public void onFailure(@NonNull ParticleCloudException e) {
-                    //In case setup was successful, but we cannot retrieve device naming would be a minor issue
-                    deviceNameView.setText(defaultDeviceName);
-                }
-            });
-        }
-    }
+//    private void showDeviceName(ParticleCloud cloud) {
+//        if (!this.skipRename) {
+//            deviceNameLabelView.setVisibility(View.VISIBLE);
+//            deviceNameView.setVisibility(View.VISIBLE);
+//            Async.executeAsync(cloud, new Async.ApiWork<ParticleCloud, ParticleDevice>() {
+//                @Override
+//                public ParticleDevice callApi(@NonNull ParticleCloud cloud) throws ParticleCloudException, IOException {
+//                    return particleCloud.getDevice(getIntent().getStringExtra(EXTRA_DEVICE_ID));
+//                }
+//
+//                @Override
+//                public void onSuccess(@NonNull ParticleDevice particleDevice) {
+//                    deviceNameView.setText(particleDevice.getName());
+//                }
+//
+//                @Override
+//                public void onFailure(@NonNull ParticleCloudException e) {
+//                    //In case setup was successful, but we cannot retrieve device naming would be a minor issue
+//                    deviceNameView.setText(defaultDeviceName);
+//                }
+//            });
+//        }
+//    }
 
     private Pair<? extends CharSequence, CharSequence> buildUiStringPair(int resultCode) {
         Pair<Integer, Integer> stringIds = resultCodesToStringIds.get(resultCode);
