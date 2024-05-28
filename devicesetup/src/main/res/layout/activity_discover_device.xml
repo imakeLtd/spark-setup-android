@@ -66,15 +66,15 @@
             android:text="@string/troubleshooting"
             android:visibility="gone"/>
 
-        <TextView
-            android:id="@+id/logged_in_as"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:text="@string/you_are_logged_in_as"
-            android:textColor="@color/normal_text_color"
-            android:textSize="@dimen/text_size_micro"/>
+<!--        <TextView-->
+<!--            android:id="@+id/logged_in_as"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="8dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/you_are_logged_in_as"-->
+<!--            android:textColor="@color/normal_text_color"-->
+<!--            android:textSize="@dimen/text_size_micro"/>-->
 
         <!--<Button-->
             <!--android:id="@+id/action_log_out"-->

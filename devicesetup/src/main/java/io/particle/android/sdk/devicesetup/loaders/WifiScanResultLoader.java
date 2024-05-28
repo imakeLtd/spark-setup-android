@@ -104,14 +104,27 @@ public class WifiScanResultLoader extends BetterAsyncTaskLoader<Set<ScanResultNe
         JsonObject customiserObject =  customiserStr.length() != 0 ? new JsonParser().parse(customiserStr).getAsJsonObject() : null;
 
         String customPrefix = customiserObject != null ? customiserObject.get("wifiPrefix").getAsString() : "";
-
+        String customPrefixAlt = customiserObject != null ? customiserObject.get("wifiPrefixAlt").getAsString() : "";
         String softApPrefix = "";
+        String softApPrefixAlt = "";
         if (!customPrefix.isEmpty()) {
             softApPrefix  = (customPrefix + "-").toLowerCase(Locale.ROOT);
+            softApPrefixAlt  = (customPrefixAlt + "-").toLowerCase(Locale.ROOT);
         } else {
             softApPrefix = (getContext().getString(R.string.network_name_prefix) + "-").toLowerCase(Locale.ROOT);
+            softApPrefixAlt = (getContext().getString(R.string.network_name_prefix) + "-").toLowerCase(Locale.ROOT);
         }
-        return input.SSID.toLowerCase(Locale.ROOT).startsWith(softApPrefix);
+        Boolean ogParticle = input.SSID.toLowerCase(Locale.ROOT).startsWith(softApPrefix);
+        Boolean hybridParticle = input.SSID.toLowerCase(Locale.ROOT).startsWith(softApPrefixAlt);
+        Boolean result = ogParticle || hybridParticle;
+        if (result) {
+            // save to customiserObject particleConnectedPrefix
+            String successPrefix = ogParticle ? customPrefix : customPrefixAlt;
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putString("particleConnectedPrefix", successPrefix);
+            edit.apply();
+        }
+        return result;
     };
 
 }
