@@ -69,4 +69,14 @@ public class SetupStepsFactory {
                 deviceSoftApSsid, wifiFacade);
     }
 
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public WaitForCloudConnectivityStep newWaitForCloudConnectivityStep(Context context) {
+        return new WaitForCloudConnectivityStep(
+                StepConfig.newBuilder()
+                        .setMaxAttempts(MAX_RETRIES_DISCONNECT_FROM_DEVICE)
+                        .setResultCode(SuccessActivity.RESULT_FAILURE_NO_DISCONNECT)
+                        .setStepId(R.id.check_for_internet_connectivity)
+                        .build(), context.getApplicationContext());
+    }
+
 }

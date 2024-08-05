@@ -26,9 +26,11 @@ import io.particle.android.sdk.devicesetup.commands.CommandClientFactory;
 import io.particle.android.sdk.devicesetup.commands.ScanApCommand;
 import io.particle.android.sdk.devicesetup.setupsteps.ConfigureAPStep;
 import io.particle.android.sdk.devicesetup.setupsteps.ConnectDeviceToNetworkStep;
+import io.particle.android.sdk.devicesetup.setupsteps.EnsureSoftApNotVisible;
 import io.particle.android.sdk.devicesetup.setupsteps.SetupStep;
 import io.particle.android.sdk.devicesetup.setupsteps.SetupStepApReconnector;
 import io.particle.android.sdk.devicesetup.setupsteps.SetupStepsFactory;
+import io.particle.android.sdk.devicesetup.setupsteps.WaitForCloudConnectivityStep;
 import io.particle.android.sdk.devicesetup.setupsteps.WaitForDisconnectionFromDeviceStep;
 import io.particle.android.sdk.di.ApModule;
 import io.particle.android.sdk.utils.SSID;
@@ -164,24 +166,18 @@ public class ConnectingActivity extends RequiresWifiScansActivity {
         WaitForDisconnectionFromDeviceStep waitForDisconnectionFromDeviceStep = setupStepsFactory
                 .newWaitForDisconnectionFromDeviceStep(deviceSoftApSsid, wifiFacade);
 
-//        EnsureSoftApNotVisible ensureSoftApNotVisible = setupStepsFactory
-//                .newEnsureSoftApNotVisible(deviceSoftApSsid, wifiFacade);
+       EnsureSoftApNotVisible ensureSoftApNotVisible = setupStepsFactory
+               .newEnsureSoftApNotVisible(deviceSoftApSsid, wifiFacade);
 
-//        WaitForCloudConnectivityStep waitForLocalCloudConnectivityStep = setupStepsFactory
-//                .newWaitForCloudConnectivityStep(getApplicationContext());
-
-//        CheckIfDeviceClaimedStep checkIfDeviceClaimedStep = setupStepsFactory
-//                .newCheckIfDeviceClaimedStep(sparkCloud, DeviceSetupState.deviceToBeSetUpId);
+       WaitForCloudConnectivityStep waitForLocalCloudConnectivityStep = setupStepsFactory
+               .newWaitForCloudConnectivityStep(getApplicationContext());
 
         List<SetupStep> steps = list(
                 configureAPStep,
                 connectDeviceToNetworkStep,
-                waitForDisconnectionFromDeviceStep);
-//                ensureSoftApNotVisible);
-//                waitForLocalCloudConnectivityStep);
-//        if (!BaseActivity.setupOnly) {
-//            steps.add(checkIfDeviceClaimedStep);
-//        }
+                waitForDisconnectionFromDeviceStep,
+                ensureSoftApNotVisible,
+                waitForLocalCloudConnectivityStep);
         return steps;
     }
 }
